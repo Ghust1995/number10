@@ -14,16 +14,11 @@ namespace Assets.Code.Classes
         [SerializeField]
         private bool _isSelected = false;
 
-        public float Cooldown = 5;
-
-        [SerializeField]
-        private float _timeSinceLastSkill;
-
         [SerializeField]
         private Hability _hability;
-
-        [SerializeField]
-        private Health _health;
+        
+        public Health Health;
+        public Cooldown Cooldown;
 
         public void Select()
         {
@@ -37,20 +32,11 @@ namespace Assets.Code.Classes
             _isSelected = false;
         }
 
-        protected void ResetCooldown()
-        {
-            _timeSinceLastSkill = Cooldown;
-        }
-
-        void Update()
-        {
-            _timeSinceLastSkill -= Time.deltaTime;
-        }
-
         public void Start()
         {
+            Health = GetComponentInChildren<Health>();
+            Cooldown = GetComponentInChildren<Cooldown>();
             _hability = GetComponent<Hability>();
-            _health = GetComponentInChildren<Health>();
             PlayerController.HabilityCast += this.CastHability;
             PlayerController.Deselect += this.Desselect;
         }
@@ -58,8 +44,8 @@ namespace Assets.Code.Classes
         private void CastHability(object sender, HabilityCastEventArgs e)
         {
             if (!_isSelected) return;
-            if (_timeSinceLastSkill > 0) return;
-            _hability.Cast(e, ResetCooldown);
+            if (Cooldown.OnCooldown) return;
+            _hability.Cast(e, Cooldown.ResetCooldown);
         }
     }
 }
