@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Code.Interfaces;
 using UnityEngine;
 
 namespace Assets.Code.Classes
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(CircleCollider2D))]
-    public abstract class BaseCharacter : MonoBehaviour
+    public class Character : MonoBehaviour
     {
         [SerializeField]
         private bool _isSelected = false;
@@ -17,6 +18,9 @@ namespace Assets.Code.Classes
 
         [SerializeField]
         private float _timeSinceLastSkill;
+
+        [SerializeField]
+        public Hability _hability;
 
         public void Select()
         {
@@ -30,7 +34,7 @@ namespace Assets.Code.Classes
             _isSelected = false;
         }
 
-        void ResetCooldown()
+        protected void ResetCooldown()
         {
             _timeSinceLastSkill = Cooldown;
         }
@@ -42,6 +46,7 @@ namespace Assets.Code.Classes
 
         public void Start()
         {
+            _hability = GetComponent<Hability>();
             PlayerController.HabilityCast += this.CastHability;
             PlayerController.Deselect += this.Desselect;
         }
@@ -50,10 +55,7 @@ namespace Assets.Code.Classes
         {
             if (!_isSelected) return;
             if (_timeSinceLastSkill > 0) return;
-            this.CastHability(e);
-            ResetCooldown();
+            _hability.Cast(e, ResetCooldown);
         }
-
-        protected abstract void CastHability(HabilityCastEventArgs e);
     }
 }
