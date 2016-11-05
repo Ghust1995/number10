@@ -87,8 +87,8 @@ GameObject:
   - 4: {fileID: 4000012174129408}
   - 212: {fileID: 212000010213100950}
   - 58: {fileID: 58000010126475922}
-  - 114: {fileID: 114000012631460586}
   - 114: {fileID: 114000013603788942}
+  - 114: {fileID: 114000010196135148}
   m_Layer: 0
   m_Name: Barr
   m_TagString: Untagged
@@ -285,6 +285,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &114000010196135148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011415060828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e814397dcb8b7294483c1007aaca79a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hability: {fileID: 0}
+  Health: {fileID: 0}
+  _isSelected: 0
 --- !u!114 &114000010459713012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -450,21 +464,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114000012631460586
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011415060828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee90dc83df0a1e49a3409b77fe64175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isSelected: 0
-  _hability: {fileID: 0}
-  Health: {fileID: 0}
-  Cooldown: {fileID: 0}
 --- !u!114 &114000013043965942
 MonoBehaviour:
   m_ObjectHideFlags: 1

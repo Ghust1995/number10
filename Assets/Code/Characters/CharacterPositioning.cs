@@ -5,7 +5,7 @@ public class CharacterPositioning : MonoBehaviour
 {
     [SerializeField]
     private List<Character> _availableCharacters;
-    private List<Character> _instantiatedCharacters = new List<Character>();
+    private readonly List<Character> _instantiatedCharacters = new List<Character>();
 
     [SerializeField]
     private Transform _center;

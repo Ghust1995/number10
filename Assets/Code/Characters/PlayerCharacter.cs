@@ -4,13 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CircleCollider2D))]
-public class Character : MonoBehaviour
+public class PlayerCharacter : Character
 {
-    [SerializeField] private bool _isSelected = false;
-
-    [SerializeField] private Hability _hability;
-
-    public Health Health;
+    [SerializeField]
+    private bool _isSelected = false;
 
     public void Select()
     {
@@ -18,27 +15,23 @@ public class Character : MonoBehaviour
         _isSelected = true;
     }
 
-    public void Desselect(object sender, EventArgs e)
+    public void Deselect(object sender, EventArgs e)
     {
         GetComponent<SpriteRenderer>().color = Color.white;
         _isSelected = false;
     }
 
-    public void Start()
+    public override void Start()
     {
-        Health = GetComponentInChildren<Health>();
-        _hability = GetComponent<Hability>();
-
-        // The collider is trigger
-        GetComponent<CircleCollider2D>().isTrigger = true;
-
+        base.Start();
+        Hability = GetComponent<Hability>();
         PlayerController.HabilityCast += this.CastHability;
-        PlayerController.Deselect += this.Desselect;
+        PlayerController.Deselect += this.Deselect;
     }
 
     private void CastHability(object sender, HabilityCastEventArgs e)
     {
         if (!_isSelected) return;
-        _hability.Cast(e);
+        base.CastHability(sender, e);
     }
 }

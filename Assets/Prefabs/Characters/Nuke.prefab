@@ -555,13 +555,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012461295336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee90dc83df0a1e49a3409b77fe64175, type: 3}
+  m_Script: {fileID: 11500000, guid: e814397dcb8b7294483c1007aaca79a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isSelected: 0
-  _hability: {fileID: 0}
+  Hability: {fileID: 0}
   Health: {fileID: 0}
-  Cooldown: {fileID: 0}
+  _isSelected: 0
 --- !u!114 &114000013691432246
 MonoBehaviour:
   m_ObjectHideFlags: 1

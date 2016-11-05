@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
             if (hit)
             {
-                var charSelected = hit.transform.GetComponent<Character>();
+                var charSelected = hit.transform.GetComponent<PlayerCharacter>();
                 if (charSelected)
                 {
                     charSelected.Select();
