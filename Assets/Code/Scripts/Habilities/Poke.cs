@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using Assets.Code.Classes;
 using Assets.Code.Interfaces;
 
 public class Poke : Hability

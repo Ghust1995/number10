@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using Assets.Code.Classes;
 
 
 public delegate void HabilityCastEventHandler(object sender, HabilityCastEventArgs e);
