@@ -192,7 +192,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   - {fileID: 114000013955315698, guid: e09f09fe5b8dd094c841aad1b66c9ba7, type: 2}
   - {fileID: 114000014157009386, guid: 6263666fcc56578439b6191e0688cb6d, type: 2}
   _center: {fileID: 1618800529}
-  _radius: 10
+  _radius: 7
 --- !u!4 &1883220201
 Transform:
   m_ObjectHideFlags: 0
