@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using Assets.Code.Classes;
 
 
 public delegate void HabilityCastEventHandler(object sender, HabilityCastEventArgs e);
@@ -31,7 +29,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
             if (hit)
             {
-                var charSelected = hit.transform.GetComponent<BaseCharacter>();
+                var charSelected = hit.transform.GetComponent<Character>();
                 if (charSelected)
                 {
                     charSelected.Select();
@@ -44,7 +42,7 @@ public class PlayerController : MonoBehaviour
             {
                 HabilityCast.Invoke(this, new HabilityCastEventArgs
                 {
-                    Position = Input.mousePosition
+                    Position = Camera.main.ScreenToWorldPoint(Input.mousePosition)
                 });
             }
 
