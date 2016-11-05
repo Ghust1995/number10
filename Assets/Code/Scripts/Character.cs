@@ -20,7 +20,10 @@ namespace Assets.Code.Classes
         private float _timeSinceLastSkill;
 
         [SerializeField]
-        public Hability _hability;
+        private Hability _hability;
+
+        [SerializeField]
+        private Health _health;
 
         public void Select()
         {
@@ -47,6 +50,7 @@ namespace Assets.Code.Classes
         public void Start()
         {
             _hability = GetComponent<Hability>();
+            _health = GetComponentInChildren<Health>();
             PlayerController.HabilityCast += this.CastHability;
             PlayerController.Deselect += this.Desselect;
         }
