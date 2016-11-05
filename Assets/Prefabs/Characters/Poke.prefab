@@ -309,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bab253e785dcea4cb3b45270b02e9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pokeBulletPrefab: {fileID: 1000012738601738, guid: 274d8c90c6da7a6499355912d277c150,
+    type: 2}
 --- !u!114 &114000011254238472
 MonoBehaviour:
   m_ObjectHideFlags: 1

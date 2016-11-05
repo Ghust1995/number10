@@ -6,23 +6,21 @@ public class Poke : Hability
 {
 	public GameObject pokeBulletPrefab;
 
-    public override void Cast(HabilityCastEventArgs e, Action resetCooldown)
+    public override void Cast(HabilityCastEventArgs e)
     { 
-		GameObject boss;
-		GameObject poke;
+		Boss boss;
 		GameObject bullet;
-		boss = GameObject.FindGameObjectWithTag("Boss");
-		poke = GameObject.Find ("Poke");
+		boss = FindObjectOfType<Boss>();
 		Vector3 direction;
 		direction = boss.transform.position;
-		direction -= poke.transform.position;
+		direction -= transform.position;
 		bullet = Instantiate (pokeBulletPrefab);
-		bullet.transform.position = poke.transform.position;
+		bullet.transform.position = transform.position;
 		float directionAngle;
 		directionAngle = Vector3.Angle(direction,new Vector3(1,0,0));
 		bullet.transform.rotation = Quaternion.Euler(0,0,directionAngle);
 		Debug.Log("Just Casted a poke!");
 
-        resetCooldown();
+        Cooldown.ResetCooldown();
     }
 }

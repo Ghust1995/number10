@@ -16,13 +16,14 @@ public class Barr : Hability
     [SerializeField]
     private float _timeToHeal = 1;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _barrier = Instantiate(_barrierPrefab);
         _barrier.SetCenter(transform);
     }
 
-    public override void Cast(HabilityCastEventArgs e, Action resetCooldown)
+    public override void Cast(HabilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -31,16 +32,16 @@ public class Barr : Hability
             if (charSelected)
             {
                 charSelected.GetComponent<SpriteRenderer>().color = Color.magenta;
-                StartCoroutine(PutBarrier(charSelected, resetCooldown));
+                StartCoroutine(PutBarrier(charSelected));
             }
         }
     }
 
-    IEnumerator PutBarrier(Character charSelected, Action resetCooldown)
+    IEnumerator PutBarrier(Character charSelected)
     {
         yield return new WaitForSeconds(_timeToHeal);
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
-        resetCooldown();
+        Cooldown.ResetCooldown();
     }
 }

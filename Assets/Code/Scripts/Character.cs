@@ -11,7 +11,6 @@ public class Character : MonoBehaviour
     [SerializeField] private Hability _hability;
 
     public Health Health;
-    public Cooldown Cooldown;
 
     public void Select()
     {
@@ -28,8 +27,11 @@ public class Character : MonoBehaviour
     public void Start()
     {
         Health = GetComponentInChildren<Health>();
-        Cooldown = GetComponentInChildren<Cooldown>();
         _hability = GetComponent<Hability>();
+
+        // The collider is trigger
+        GetComponent<CircleCollider2D>().isTrigger = true;
+
         PlayerController.HabilityCast += this.CastHability;
         PlayerController.Deselect += this.Desselect;
     }
@@ -37,7 +39,6 @@ public class Character : MonoBehaviour
     private void CastHability(object sender, HabilityCastEventArgs e)
     {
         if (!_isSelected) return;
-        if (Cooldown.OnCooldown) return;
-        _hability.Cast(e, Cooldown.ResetCooldown);
+        _hability.Cast(e);
     }
 }

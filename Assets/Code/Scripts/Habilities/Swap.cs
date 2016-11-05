@@ -12,7 +12,7 @@ public class Swap : Hability
     [SerializeField]
     private Character _char2;
 
-    public override void Cast(HabilityCastEventArgs e, Action resetCooldown)
+    public override void Cast(HabilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -29,13 +29,13 @@ public class Swap : Hability
                 {
                     _char2 = charSelected;
                     // Swap characters after some time
-                    StartCoroutine(SwapCharacters(resetCooldown));
+                    StartCoroutine(SwapCharacters());
                 }
             }
         }
     }
 
-    IEnumerator SwapCharacters(Action resetCooldown)
+    IEnumerator SwapCharacters()
     {
         yield return new WaitForSeconds(TimeToSwap);
         var char1pos = _char1.transform.position;
@@ -45,6 +45,6 @@ public class Swap : Hability
         _char2.GetComponent<SpriteRenderer>().color = Color.white;
         _char1 = null;
         _char2 = null;
-        resetCooldown();
+        Cooldown.ResetCooldown();
     }
 }

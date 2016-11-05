@@ -11,7 +11,7 @@ public class Heal : Hability
     [SerializeField]
     private float _timeToHeal = 1;
 
-    public override void Cast(HabilityCastEventArgs e, Action resetCooldown)
+    public override void Cast(HabilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -20,17 +20,16 @@ public class Heal : Hability
             if (charSelected)
             {
                 charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
-                StartCoroutine(DoHeal(charSelected, resetCooldown));
+                StartCoroutine(DoHeal(charSelected));
             }
         }
-        resetCooldown();
     }
 
-    IEnumerator DoHeal(Character charSelected, Action resetCooldown)
+    IEnumerator DoHeal(Character charSelected)
     {
         yield return new WaitForSeconds(_timeToHeal);
         charSelected.Health.Heal(_healingDone);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
-        resetCooldown();
+        Cooldown.ResetCooldown();
     }
 }

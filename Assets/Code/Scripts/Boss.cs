@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Assets.Code.Interfaces;
 
-public class Boss : MonoBehaviour {
+public class Boss : MonoBehaviour
+{
 
-	// Use this for initialization
+    private List<Hability> habilities;
+    // Use this for initialization
 	void Start () {
 	
 	}

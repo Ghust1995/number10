@@ -5,6 +5,13 @@ namespace Assets.Code.Interfaces
 {
     public abstract class Hability : MonoBehaviour
     {
-        public abstract void Cast(HabilityCastEventArgs e, Action resetCooldown);
+        protected Cooldown Cooldown;
+
+        protected virtual void Start()
+        {
+            Cooldown = GetComponentInChildren<Cooldown>();
+        }
+
+        public abstract void Cast(HabilityCastEventArgs e);
     }
 }
