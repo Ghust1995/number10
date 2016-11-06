@@ -6,7 +6,7 @@ using UnityEngineInternal;
 public enum AbilityType
 {
     Poke,
-    //Stun,
+    Stun,
     Nuke,
     Heal,
     Swap,
@@ -26,6 +26,17 @@ public abstract class Character : MonoBehaviour
     public Health Health;
     public Stun Stun;
 
+    public bool CanCastAbility
+    {
+        get
+        {
+            return (this.Ability != null)
+                   && (!Stun.IsStunned)
+                   && (!Ability.Cooldown.OnCooldown);
+
+        }
+    }
+
     public virtual void Start()
     {
         Health = GetComponentInChildren<Health>();
@@ -42,7 +53,12 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public abstract void OnDestroy();
+    public delegate void OnDestroyCallback();
+    public OnDestroyCallback OnDestroyCallbacks;
+    public void OnDestroy()
+    {
+        OnDestroyCallbacks.Invoke();
+    }
 
     protected virtual void CastAbility(object sender, AbilityCastEventArgs e)
     {

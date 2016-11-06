@@ -5,7 +5,7 @@ public class CharacterPositioning : MonoBehaviour
 {
     [SerializeField]
     private List<Character> _availableCharacters;
-    private readonly List<Character> _instantiatedCharacters = new List<Character>();
+    public List<Character> InstantiatedCharacters = new List<Character>();
 
     [SerializeField]
     private Transform _center;
@@ -13,22 +13,26 @@ public class CharacterPositioning : MonoBehaviour
     [SerializeField]
     private float _radius;
 
+    public float InitialAngle = 0 * Mathf.PI * 2;
+
     // Use this for initialization
     void Awake ()
     {
         foreach (var t in _availableCharacters)
         {
-            _instantiatedCharacters.Add(Instantiate(t));
+            var goChar = Instantiate(t);
+            InstantiatedCharacters.Add(goChar);
+            goChar.OnDestroyCallbacks += () => { InstantiatedCharacters.Remove(goChar); };
         }
-        var initialAngle = Random.value * Mathf.PI * 2;
-        for (int i = 0; i < _instantiatedCharacters.Count; i++)
+        
+        for (int i = 0; i < InstantiatedCharacters.Count; i++)
         {
-            _instantiatedCharacters[i].transform.position = (Vector2)_center.position +
+            InstantiatedCharacters[i].transform.position = (Vector2)_center.position +
                                                             new Vector2(
                                                                 _radius *
-                                                                Mathf.Cos(initialAngle + i * 2 * Mathf.PI / _instantiatedCharacters.Count),
+                                                                Mathf.Cos(InitialAngle + i * 2 * Mathf.PI / InstantiatedCharacters.Count),
                                                                 _radius *
-                                                                Mathf.Sin(initialAngle + i * 2 * Mathf.PI / _instantiatedCharacters.Count));
+                                                                Mathf.Sin(InitialAngle + i * 2 * Mathf.PI / InstantiatedCharacters.Count));
         }
 
     }

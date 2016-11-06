@@ -14,27 +14,28 @@ public class BossCharacter : Character
         AbilityBuilder = new Dictionary<AbilityType, Ability>()
         {
             {AbilityType.Poke, GetComponent<PokeAbility>()},
-            //{AbilityType.Stun, GetComponent<Stun>()},
+            {AbilityType.Stun, GetComponent<StunAbility>()},
             {AbilityType.Nuke, GetComponent<NukeAbility>()},
             {AbilityType.Heal, GetComponent<HealAbility>()},
             {AbilityType.Swap, GetComponent<SwapAbility>()},
             {AbilityType.Barr, GetComponent<BarrAbility>()},
-            //{AbilityType.Buff, GetComponent<Buff>()},
-            //{AbilityType.Wall, GetComponent<Wall>()},
-            //{AbilityType.Tank, GetComponent<Tank>()},
+            //{AbilityType.Buff, GetComponent<BuffAbility>()},
+            //{AbilityType.Wall, GetComponent<WallAbility>()},
+            //{AbilityType.Tank, GetComponent<TankAbility>()},
         };
         Ability = AbilityBuilder[_abilityType];
         BossController.AbilityCast += CastAbility;
+        OnDestroyCallbacks += () => { BossController.AbilityCast -= this.CastAbility; };
+    }
+
+    public void SetAbility(AbilityType type)
+    {
+        _abilityType = type;
     }
 
     public override void Update()
     {
         base.Update();
         Ability = AbilityBuilder[_abilityType];
-    }
-
-    public override void OnDestroy()
-    {
-        BossController.AbilityCast -= this.CastAbility;
     }
 }
