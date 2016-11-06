@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000014109370364
 GameObject:
   m_ObjectHideFlags: 1
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bab253e785dcea4cb3b45270b02e9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokeBulletPrefab: {fileID: 1000012738601738, guid: 274d8c90c6da7a6499355912d277c150,
+  pokeBulletPrefab: {fileID: 114000010148141846, guid: 274d8c90c6da7a6499355912d277c150,
     type: 2}
 --- !u!114 &114000010866930370
 MonoBehaviour:

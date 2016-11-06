@@ -229,6 +229,11 @@ GameObject:
   - 58: {fileID: 1618800531}
   - 114: {fileID: 1618800530}
   - 114: {fileID: 1618800533}
+  - 114: {fileID: 1618800538}
+  - 114: {fileID: 1618800537}
+  - 114: {fileID: 1618800536}
+  - 114: {fileID: 1618800535}
+  - 114: {fileID: 1618800534}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -306,7 +311,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 72242bafeba0bda40bbe3ac562069242, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -321,6 +326,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcf1e14b4ccecc4cabf55ccf54851bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1618800534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618800528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf2317eeea2179408f18307297e2b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _char1: {fileID: 0}
+  _char2: {fileID: 0}
+--- !u!114 &1618800535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618800528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bab253e785dcea4cb3b45270b02e9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokeBulletPrefab: {fileID: 0}
+--- !u!114 &1618800536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618800528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a545ae15b989645ae828956f00d8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1618800537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618800528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4538ee65c6a19744af994c0435f7df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healingDone: 10
+  _timeToHeal: 1
+--- !u!114 &1618800538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618800528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becf0e0755b4eb540a83645f1f1dfe23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barrierPrefab: {fileID: 114000011000213966, guid: 4bce83e5acdf5be45a88ea1bfacd0bfd,
+    type: 2}
+  _healingDone: 10
+  _timeToHeal: 1
 --- !u!1 &1820832382
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +486,7 @@ MonoBehaviour:
   - {fileID: 114000014074399186, guid: e09f09fe5b8dd094c841aad1b66c9ba7, type: 2}
   - {fileID: 114000014157009386, guid: 6263666fcc56578439b6191e0688cb6d, type: 2}
   _center: {fileID: 1618800529}
-  _radius: 7
+  _radius: 8
 --- !u!4 &1883220201
 Transform:
   m_ObjectHideFlags: 0
