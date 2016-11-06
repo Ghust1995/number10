@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Assets.Code.Interfaces;
 
-public class Swap : Hability
+public class Swap : Ability
 {
     public const float TimeToSwap = 1.0f;
 
@@ -12,7 +12,7 @@ public class Swap : Hability
     [SerializeField]
     private Character _char2;
 
-    public override void Cast(HabilityCastEventArgs e)
+    protected override void Cast(AbilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)

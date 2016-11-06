@@ -24,14 +24,14 @@ public class PlayerCharacter : Character
     public override void Start()
     {
         base.Start();
-        Hability = GetComponent<Hability>();
-        PlayerController.HabilityCast += this.CastHability;
+        Ability = GetComponent<Ability>();
+        PlayerController.AbilityCast += this.CastAbility;
         PlayerController.Deselect += this.Deselect;
     }
 
-    private void CastHability(object sender, HabilityCastEventArgs e)
+    protected void CastAbility(object sender, AbilityCastEventArgs e)
     {
         if (!_isSelected) return;
-        base.CastHability(sender, e);
+        base.CastAbility(sender, e);
     }
 }

@@ -2,17 +2,17 @@
 using UnityEngine;
 
 
-public delegate void HabilityCastEventHandler(object sender, HabilityCastEventArgs e);
+public delegate void AbilityCastEventHandler(object sender, AbilityCastEventArgs e);
 public delegate void DeselectEventHandler(object sender, EventArgs e);
 
-public class HabilityCastEventArgs
+public class AbilityCastEventArgs : EventArgs
 {
     public Vector2 Position;
 }
 
 public class PlayerController : MonoBehaviour
 {
-    public static event HabilityCastEventHandler HabilityCast;
+    public static event AbilityCastEventHandler AbilityCast;
     public static event DeselectEventHandler Deselect;
 
     // Update is called once per frame
@@ -38,9 +38,9 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if (HabilityCast != null)
+            if (AbilityCast != null)
             {
-                HabilityCast.Invoke(this, new HabilityCastEventArgs
+                AbilityCast.Invoke(this, new AbilityCastEventArgs
                 {
                     Position = Camera.main.ScreenToWorldPoint(Input.mousePosition)
                 });

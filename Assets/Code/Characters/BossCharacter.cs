@@ -1,21 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Code.Interfaces;
 
 public class BossCharacter : Character
 {
-    private List<Hability> habilities;
+    [SerializeField]
+    private List<Ability> _habilities;
+
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        Hability = GetComponent<Hability>();
-        PlayerController.HabilityCast += this.CastHability;
+        _habilities = GetComponents<Ability>().ToList();
+        BossController.AbilityCast += this.CastAbility;
     }
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

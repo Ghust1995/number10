@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
-    protected Hability Hability;
+    protected Ability Ability;
 
     public Health Health;
 
@@ -18,8 +18,13 @@ public abstract class Character : MonoBehaviour
         GetComponent<CircleCollider2D>().isTrigger = true;
     }
 
-    protected virtual void CastHability(object sender, HabilityCastEventArgs e)
+    protected virtual void CastAbility(object sender, AbilityCastEventArgs e)
     {
-        Hability.Cast(e);
+        if(Ability == null)
+        {
+            Debug.Log("No ability selected");
+            return;
+        }
+        Ability.Cast(sender, e);
     }
 }

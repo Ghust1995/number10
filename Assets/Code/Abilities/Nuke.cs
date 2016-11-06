@@ -2,10 +2,9 @@
 using UnityEngine;
 using Assets.Code.Interfaces;
 
-public class Nuke : Hability
+public class Nuke : Ability
 {
-
-    public override void Cast(HabilityCastEventArgs e)
+    protected override void Cast(AbilityCastEventArgs e)
     {
         Debug.Log("Just Casted a nuke!");
         Cooldown.ResetCooldown();

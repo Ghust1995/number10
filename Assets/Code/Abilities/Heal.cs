@@ -3,27 +3,15 @@ using UnityEngine;
 using System.Collections;
 using Assets.Code.Interfaces;
 
-public class Barr : Hability
+public class Heal : Ability
 {
-    [SerializeField]
-    private Barrier _barrierPrefab;
-
-    private Barrier _barrier;
-
     [SerializeField]
     private float _healingDone = 10;
 
     [SerializeField]
     private float _timeToHeal = 1;
 
-    protected override void Start()
-    {
-        base.Start();
-        _barrier = Instantiate(_barrierPrefab);
-        _barrier.SetCenter(transform);
-    }
-
-    public override void Cast(HabilityCastEventArgs e)
+    protected override void Cast(AbilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -31,16 +19,16 @@ public class Barr : Hability
             var charSelected = hit.transform.GetComponent<Character>();
             if (charSelected)
             {
-                charSelected.GetComponent<SpriteRenderer>().color = Color.magenta;
-                StartCoroutine(PutBarrier(charSelected));
+                charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
+                StartCoroutine(DoHeal(charSelected));
             }
         }
     }
 
-    IEnumerator PutBarrier(Character charSelected)
+    IEnumerator DoHeal(Character charSelected)
     {
         yield return new WaitForSeconds(_timeToHeal);
-        _barrier.SetCenter(charSelected.transform);
+        charSelected.Health.Heal(_healingDone);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
         Cooldown.ResetCooldown();
     }
