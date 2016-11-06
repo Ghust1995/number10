@@ -18,12 +18,12 @@ public class HealAbility : Ability
             if (charSelected)
             {
                 charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
-                StartCoroutine(DoHeal(charSelected));
+                StartCoroutine(Heal(charSelected));
             }
         }
     }
 
-    IEnumerator DoHeal(Character charSelected)
+    IEnumerator Heal(Character charSelected)
     {
         Cooldown.ResetCooldown();
         yield return new WaitForSeconds(_timeToHeal);

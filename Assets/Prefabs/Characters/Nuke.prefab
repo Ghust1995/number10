@@ -783,7 +783,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a545ae15b989645ae828956f00d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: {fileID: 0}
+  _damagePerHit: 50
+  _timeToDamage: 2
+  _numberOfHits: 4
+  _timePerHit: 0.5
+  _nukeObjectPrefab: {fileID: 1000013700302278, guid: 37c63a4dfc3205746a49058d208ff14e,
+    type: 2}
 --- !u!114 &114000013926679698
 MonoBehaviour:
   m_ObjectHideFlags: 1

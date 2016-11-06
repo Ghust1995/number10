@@ -24,7 +24,20 @@ public class BossController : MonoBehaviour
         _targetCharacters = FindObjectOfType<CharacterPositioning>().InstantiatedCharacters.Select(c => c.gameObject).ToList();
 
         //Choose which skill to use
-        _boss.SetAbility(Random.value > 0.25 ? AbilityType.Poke : AbilityType.Stun);
+        AbilityType chosenAbility;
+        if (Random.value < 0.10)
+        {
+            chosenAbility = AbilityType.Nuke;
+        }
+        else if (Random.value < 0.30)
+        {
+            chosenAbility = AbilityType.Stun;
+        }
+        else
+        {
+            chosenAbility = AbilityType.Poke;
+        }
+        _boss.SetAbility(chosenAbility);
         if (AbilityCast != null && _boss.CanCastAbility && _targetCharacters.Count > 0)
         {
             var targetEnemy = _targetCharacters[(++_iteration) % _targetCharacters.Count];
