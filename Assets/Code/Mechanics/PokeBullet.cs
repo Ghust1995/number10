@@ -26,7 +26,8 @@ public class PokeBullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<Barrier>())
+        var barrierHit = other.gameObject.GetComponent<Barrier>();
+        if (barrierHit && barrierHit.transform.parent.gameObject == Target)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;

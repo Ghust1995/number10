@@ -15,6 +15,7 @@ public class Barr : Ability
     {
         base.Start();
         _barrier = Instantiate(_barrierPrefab);
+        _barrier.transform.parent = transform;
         _barrier.SetCenter(transform);
     }
 
@@ -36,6 +37,7 @@ public class Barr : Ability
     {
         Cooldown.ResetCooldown();
         yield return new WaitForSeconds(_timeToApplyBarrier);
+        _barrier.transform.parent = charSelected.transform;
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
     }
