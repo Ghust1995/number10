@@ -8,11 +8,12 @@ public class Poke : Ability
 
     protected override void Cast(AbilityCastEventArgs e)
     {
-		Vector3 direction = FindObjectOfType<BossCharacter>().transform.position - transform.position;
-        float directionAngle = Vector3.Angle(direction, new Vector3(1, 0, 0));
-
+		Vector3 direction = e.targetEnemy.transform.position - transform.position;
+		float directionAngle = Mathf.Atan2(direction.y, direction.x);
+		Debug.Log (directionAngle);
         var bullet = Instantiate(pokeBulletPrefab);
-        bullet.Target = FindObjectOfType<BossCharacter>().gameObject;
+		directionAngle *= 360 / (2 * Mathf.PI);
+		bullet.Target = e.targetEnemy;
         bullet.transform.position = transform.position;
 		bullet.transform.rotation = Quaternion.Euler(0,0,directionAngle);
 

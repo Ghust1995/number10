@@ -8,6 +8,7 @@ public delegate void DeselectEventHandler(object sender, EventArgs e);
 public class AbilityCastEventArgs : EventArgs
 {
     public Vector2 Position;
+	public GameObject targetEnemy;
 }
 
 public class PlayerController : MonoBehaviour
@@ -40,10 +41,7 @@ public class PlayerController : MonoBehaviour
         {
             if (AbilityCast != null)
             {
-                AbilityCast.Invoke(this, new AbilityCastEventArgs
-                {
-                    Position = Camera.main.ScreenToWorldPoint(Input.mousePosition)
-                });
+				AbilityCast.Invoke(this, new AbilityCastEventArgs{Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),targetEnemy = FindObjectOfType<BossCharacter>().gameObject});
             }
 
         }
