@@ -34,6 +34,16 @@ public abstract class Character : MonoBehaviour
         GetComponent<CircleCollider2D>().isTrigger = true;
     }
 
+    public virtual void Update()
+    {
+        if (Health.Value <= 0.0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public abstract void OnDestroy();
+
     protected virtual void CastAbility(object sender, AbilityCastEventArgs e)
     {
         if(Ability == null)

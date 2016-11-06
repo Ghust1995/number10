@@ -27,8 +27,14 @@ public class BossCharacter : Character
         BossController.AbilityCast += CastAbility;
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         Ability = AbilityBuilder[_abilityType];
+    }
+
+    public override void OnDestroy()
+    {
+        BossController.AbilityCast -= this.CastAbility;
     }
 }

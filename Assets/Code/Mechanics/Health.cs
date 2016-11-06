@@ -7,30 +7,29 @@ public class Health : MonoBehaviour
 
     [SerializeField]
     private float _maxHealth = 100;
-
-    [SerializeField]
-    private float _health;
+    
+    public float Value { get; private set; }
     
     public void Damage(float damageDealt)
     {
-        _health = Mathf.Clamp(_health - damageDealt, 0, _maxHealth);
+        Value = Mathf.Clamp(Value - damageDealt, 0, _maxHealth);
     }
     
     public void Heal(float healingDone)
     {
-        _health = Mathf.Clamp(_health + healingDone, 0, _maxHealth);
+        Value = Mathf.Clamp(Value + healingDone, 0, _maxHealth);
     }
 
     // Use this for initialization
     void Start ()
 	{
 	    _healthBar = GetComponentInChildren<Slider>();
-	    _health = _maxHealth;
+	    Value = _maxHealth;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    _healthBar.value = _health/_maxHealth;
+	    _healthBar.value = Value/_maxHealth;
 	}
 }

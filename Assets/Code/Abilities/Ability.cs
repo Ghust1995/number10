@@ -2,6 +2,7 @@
 
 public abstract class Ability : MonoBehaviour
 {
+    [SerializeField]
     protected Cooldown Cooldown;
 
     protected virtual void Start()

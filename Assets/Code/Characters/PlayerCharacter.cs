@@ -20,6 +20,19 @@ public class PlayerCharacter : Character
         _isSelected = false;
     }
 
+    public override void OnDestroy()
+    {
+        PlayerController.AbilityCast -= this.CastAbility;
+        PlayerController.Deselect -= this.Deselect;
+        _isSelected = false;
+    }
+
+    protected void CastAbility(object sender, AbilityCastEventArgs e)
+    {
+        if (!_isSelected) return;
+        base.CastAbility(sender, e);
+    }
+
     public override void Start()
     {
         base.Start();
@@ -28,9 +41,8 @@ public class PlayerCharacter : Character
         PlayerController.Deselect += this.Deselect;
     }
 
-    protected void CastAbility(object sender, AbilityCastEventArgs e)
+    public override void Update()
     {
-        if (!_isSelected) return;
-        base.CastAbility(sender, e);
+        base.Update();
     }
 }

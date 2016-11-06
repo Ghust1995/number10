@@ -254,7 +254,6 @@ GameObject:
   - 58: {fileID: 58000010651052936}
   - 114: {fileID: 114000014157009386}
   - 114: {fileID: 114000012352116310}
-  - 114: {fileID: 114000011123068024}
   m_Layer: 0
   m_Name: Swap
   m_TagString: Untagged
@@ -544,20 +543,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000011123068024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013200383320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db97ca6d1b14704f9c87bc50e826c83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: {fileID: 0}
-  Stun: {fileID: 0}
-  _isSelected: 0
 --- !u!114 &114000011278922052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -689,6 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf2317eeea2179408f18307297e2b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cooldown: {fileID: 0}
   _char1: {fileID: 0}
   _char2: {fileID: 0}
 --- !u!114 &114000012531122402
@@ -730,7 +716,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _health: 0
 --- !u!114 &114000012909185864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,7 +911,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 65546d422ed578b4fa5360cd88f5038e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f37ca1540e4f34e4c8296912f2fb7569, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

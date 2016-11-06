@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PokeBullet : MonoBehaviour {
+public class StunBullet : MonoBehaviour {
 
 	[SerializeField]
 	private float _speed = 10f;
@@ -9,11 +9,16 @@ public class PokeBullet : MonoBehaviour {
 	[SerializeField]
 	private float _damageDone = 10;
 
-	[SerializeField]
-	private float _timeToDamage = 1;
+    [SerializeField]
+    private float _stunTime = 3;
+
+    [SerializeField]
+	private float _timeToDamage = 0.2f;
 
     [SerializeField]
     private float _timeToDestroy = 0.5f;
+
+    public GameObject Target { set; private get; }
 
     private bool _hitTarget = false;
 	
@@ -49,6 +54,7 @@ public class PokeBullet : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (_timeToDamage);
 		targetChar.Health.Damage(_damageDone);
+        targetChar.Stun.DoStun(_stunTime);
 		targetChar.GetComponent<SpriteRenderer>().color = Color.white;
         StartCoroutine(Destroy());
     }
@@ -58,9 +64,5 @@ public class PokeBullet : MonoBehaviour {
         yield return new WaitForSeconds(_timeToDestroy);
         Destroy(gameObject);
     }
-
-
-
-    public GameObject Target { set; private get; }
 }
 		

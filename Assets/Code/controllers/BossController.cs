@@ -14,12 +14,12 @@ public class BossController : MonoBehaviour
     void Start()
     {
         _boss = GetComponent<BossCharacter>();
-        _targetCharacters = FindObjectsOfType<PlayerCharacter>().Select(c=> c.gameObject).ToList();
     }
 
     // Update is called once per frame
     void Update()
     {
+        _targetCharacters = FindObjectsOfType<PlayerCharacter>().Select(c => c.gameObject).ToList();
         //if (Random.value > 0.01) return;
         if (AbilityCast != null)
         {
