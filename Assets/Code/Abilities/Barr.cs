@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using Assets.Code.Interfaces;
 
 public class Barr : Ability
 {
@@ -11,10 +9,7 @@ public class Barr : Ability
     private Barrier _barrier;
 
     [SerializeField]
-    private float _healingDone = 10;
-
-    [SerializeField]
-    private float _timeToHeal = 1;
+    private float _timeToApplyBarrier = 1;
 
     protected override void Start()
     {
@@ -39,9 +34,9 @@ public class Barr : Ability
 
     IEnumerator PutBarrier(Character charSelected)
     {
-        yield return new WaitForSeconds(_timeToHeal);
+        Cooldown.ResetCooldown();
+        yield return new WaitForSeconds(_timeToApplyBarrier);
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
-        Cooldown.ResetCooldown();
     }
 }

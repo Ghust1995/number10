@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using Assets.Code.Interfaces;
 
 public class Heal : Ability
 {
@@ -27,9 +25,9 @@ public class Heal : Ability
 
     IEnumerator DoHeal(Character charSelected)
     {
+        Cooldown.ResetCooldown();
         yield return new WaitForSeconds(_timeToHeal);
         charSelected.Health.Heal(_healingDone);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
-        Cooldown.ResetCooldown();
     }
 }

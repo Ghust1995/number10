@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using Assets.Code.Interfaces;
 
 public class Swap : Ability
 {

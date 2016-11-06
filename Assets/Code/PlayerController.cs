@@ -2,12 +2,14 @@
 using UnityEngine;
 
 
-public delegate void AbilityCastEventHandler(object sender, AbilityCastEventArgs e);
+
 public delegate void DeselectEventHandler(object sender, EventArgs e);
 
+public delegate void AbilityCastEventHandler(object sender, AbilityCastEventArgs e);
 public class AbilityCastEventArgs : EventArgs
 {
     public Vector2 Position;
+    public GameObject TargetEnemy;
 }
 
 public class PlayerController : MonoBehaviour
@@ -42,8 +44,9 @@ public class PlayerController : MonoBehaviour
             {
                 AbilityCast.Invoke(this, new AbilityCastEventArgs
                 {
-                    Position = Camera.main.ScreenToWorldPoint(Input.mousePosition)
-                });
+                    Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
+                    TargetEnemy = FindObjectOfType<BossCharacter>().gameObject
+            });
             }
 
         }

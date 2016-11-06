@@ -14,7 +14,7 @@ public class CharacterPositioning : MonoBehaviour
     private float _radius;
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         foreach (var t in _availableCharacters)
         {
@@ -31,10 +31,5 @@ public class CharacterPositioning : MonoBehaviour
                                                                 Mathf.Sin(initialAngle + i * 2 * Mathf.PI / _instantiatedCharacters.Count));
         }
 
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        
     }
 }

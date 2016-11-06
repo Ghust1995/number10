@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Assets.Code.Interfaces;
+﻿using UnityEngine;
 
 public class Nuke : Ability
 {
