@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Swap : Ability
+public class SwapAbility : Ability
 {
     public const float TimeToSwap = 1.0f;
 

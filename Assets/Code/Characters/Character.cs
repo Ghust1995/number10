@@ -23,12 +23,13 @@ public abstract class Character : MonoBehaviour
     public Dictionary<AbilityType, Ability> AbilityBuilder;
 
     protected Ability Ability;
-
     public Health Health;
+    public Stun Stun;
 
     public virtual void Start()
     {
         Health = GetComponentInChildren<Health>();
+        Stun = GetComponentInChildren<Stun>();
         // The collider is trigger
         GetComponent<CircleCollider2D>().isTrigger = true;
     }
@@ -40,6 +41,7 @@ public abstract class Character : MonoBehaviour
             Debug.Log("No ability selected");
             return;
         }
+        if (Stun.IsStunned) return;
         Ability.Cast(sender, e);
     }
 }

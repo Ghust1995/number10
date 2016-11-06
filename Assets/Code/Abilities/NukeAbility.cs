@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Nuke : Ability
+public class NukeAbility : Ability
 {
     protected override void Cast(AbilityCastEventArgs e)
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Poke : Ability
+public class PokeAbility : Ability
 {
     [SerializeField]
     private PokeBullet _pokeBulletPrefab;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Heal : Ability
+public class HealAbility : Ability
 {
     [SerializeField]
     private float _healingDone = 10;

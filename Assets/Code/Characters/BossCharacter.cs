@@ -13,12 +13,12 @@ public class BossCharacter : Character
         base.Start();
         AbilityBuilder = new Dictionary<AbilityType, Ability>()
         {
-            {AbilityType.Poke, GetComponent<Poke>()},
+            {AbilityType.Poke, GetComponent<PokeAbility>()},
             //{AbilityType.Stun, GetComponent<Stun>()},
-            {AbilityType.Nuke, GetComponent<Nuke>()},
-            {AbilityType.Heal, GetComponent<Heal>()},
-            {AbilityType.Swap, GetComponent<Swap>()},
-            {AbilityType.Barr, GetComponent<Barr>()},
+            {AbilityType.Nuke, GetComponent<NukeAbility>()},
+            {AbilityType.Heal, GetComponent<HealAbility>()},
+            {AbilityType.Swap, GetComponent<SwapAbility>()},
+            {AbilityType.Barr, GetComponent<BarrAbility>()},
             //{AbilityType.Buff, GetComponent<Buff>()},
             //{AbilityType.Wall, GetComponent<Wall>()},
             //{AbilityType.Tank, GetComponent<Tank>()},

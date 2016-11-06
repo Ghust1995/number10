@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Barr : Ability
+public class BarrAbility : Ability
 {
     [SerializeField]
     private Barrier _barrierPrefab;

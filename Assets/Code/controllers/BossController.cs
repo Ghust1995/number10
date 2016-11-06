@@ -20,7 +20,7 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Random.value > 0.01) return;
+        //if (Random.value > 0.01) return;
         if (AbilityCast != null)
         {
             var targetEnemy = _targetCharacters[Random.Range(0, _targetCharacters.Count)];
