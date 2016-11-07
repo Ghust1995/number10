@@ -30,23 +30,21 @@ public class SwapAbility : Ability
                 {
                     _char2 = charSelected;
                     // Swap characters after some time
-                    StartCoroutine(SwapCharacters(caster));
+                    StartCoroutine(DoCastLogic(caster, null, SwapCharacters));
                 }
             }
         }
     }
 
-    IEnumerator SwapCharacters(Character caster)
+    IEnumerator SwapCharacters(Character caster, Character target)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
         var char1pos = _char1.transform.position;
         _char1.transform.position = _char2.transform.position;
         _char2.transform.position = char1pos;
         _char1.GetComponent<SpriteRenderer>().color = Color.white;
         _char2.GetComponent<SpriteRenderer>().color = Color.white;
         _char1 = null;
-        _char2 = null;        
+        _char2 = null;
+        yield break;
     }
 }

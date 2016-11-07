@@ -55,7 +55,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 0.13, y: 0.64}
 --- !u!114 &114000011000213966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,9 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e4ed99650da6e4882051b7e5a3d944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _center: {fileID: 0}
   _radius: 2
-  _velocity: 6
+  _speed: 3
 --- !u!212 &212000014148325348
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -14,16 +14,13 @@ public class NukeAbility : Ability
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         GetComponent<SpriteRenderer>().color = Color.green;
-        StartCoroutine(Nuke(caster, e.TargetEnemy.GetComponent<Character>()));
+        StartCoroutine(DoCastLogic(caster, e.TargetEnemy.GetComponent<Character>(), Nuke));
         Cooldown.ResetCooldown();
     }
 
     private IEnumerator Nuke(Character caster, Character target)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
         GetComponent<SpriteRenderer>().color = Color.white;
-        if (caster.Stun.IsStunned) yield break;
         var nukeObject = Instantiate(_nukeObjectPrefab);
         Vector3 direction = target.transform.position - transform.position;
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * 360 / (2 * Mathf.PI);

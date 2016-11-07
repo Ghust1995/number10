@@ -13,16 +13,14 @@ public class PokeAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        StartCoroutine(Poke(caster, e.TargetEnemy));
+        StartCoroutine(DoCastLogic(caster, e.TargetEnemy.GetComponent<Character>(), Poke));
     }
 
-    IEnumerator Poke(Character caster, GameObject target)
+    IEnumerator Poke(Character caster, Character target)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
         var bullet = Instantiate(_pokeBulletPrefab, this.transform) as PokeBullet;
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Initialize(Data.Objectspeed, Data.Power, target);
+        bullet.Initialize(Data.Objectspeed, Data.Power, target.gameObject);
+        yield break;
     }
 }

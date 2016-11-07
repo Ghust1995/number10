@@ -1,16 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    [SerializeField]
     protected Abilities Constants;
 
     [SerializeField]
     protected AbilitiesData Data;
-
-    
 
     [ExecuteInEditMode]
     protected abstract AbilityType GetAbilityType();
@@ -50,5 +49,16 @@ public abstract class Ability : MonoBehaviour
     }
 
     protected abstract void Cast(Character caster, AbilityCastEventArgs e);
+
+    protected IEnumerator DoCastLogic(Character caster, Character target, Func<Character, Character, IEnumerator> castLogic)
+    {
+        Cooldown.ResetCooldown();
+        yield return new WaitForSeconds(Data.Casttime);
+        if (caster.Stun.IsStunned) yield break;
+        caster.IsCasting = true;
+        yield return castLogic(caster, target);
+        caster.IsCasting = false;
+    }
+
 }
 

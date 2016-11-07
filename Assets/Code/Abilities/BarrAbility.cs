@@ -31,18 +31,16 @@ public class BarrAbility : Ability
             if (charSelected)
             {
                 charSelected.GetComponent<SpriteRenderer>().color = Color.magenta;
-                StartCoroutine(PutBarrier(caster, charSelected));
+                StartCoroutine(DoCastLogic(caster, charSelected, PutBarrier));
             }
         }
     }
 
     IEnumerator PutBarrier(Character caster, Character charSelected)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Cooldown);
-        if(caster.Stun.IsStunned) yield break; ;
         _barrier.transform.parent = charSelected.transform;
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
+        yield break;
     }
 }

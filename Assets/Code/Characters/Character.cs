@@ -13,13 +13,16 @@ public abstract class Character : MonoBehaviour
     public Health Health;
     public Stun Stun;
 
+    public bool IsCasting;
+
     public bool CanCastAbility
     {
         get
         {
             return (this.Ability != null)
-                   && (!Stun.IsStunned)
-                   && (!Ability.Cooldown.OnCooldown);
+                   && !Stun.IsStunned
+                   && !Ability.Cooldown.OnCooldown
+                   && !IsCasting;
 
         }
     }
@@ -41,7 +44,7 @@ public abstract class Character : MonoBehaviour
     }
 
     public delegate void OnDestroyCallback();
-    public OnDestroyCallback OnDestroyCallbacks;
+    public event OnDestroyCallback OnDestroyCallbacks;
     public void OnDestroy()
     {
         OnDestroyCallbacks.Invoke();
@@ -55,6 +58,7 @@ public abstract class Character : MonoBehaviour
             return;
         }
         if (Stun.IsStunned) return;
+        if (IsCasting) return;
         Ability.TryCast(this, e);
     }
 }

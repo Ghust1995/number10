@@ -22,18 +22,20 @@ public class HealAbility : Ability
             var charSelected = hit.transform.GetComponent<Character>();
             if (charSelected)
             {
-                charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
-                StartCoroutine(Heal(caster, charSelected));
+                StartCoroutine(DoCastLogic(caster, charSelected, Heal));
             }
         }
     }
 
     IEnumerator Heal(Character caster, Character charSelected)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
-        charSelected.Health.Heal(Data.Power);
+        charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
+        for (int i = 0; i < Data.Ticks; i++)
+        {
+            charSelected.Health.Heal(Data.Power);
+            yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
+            if (caster.Stun.IsStunned) break;
+        }
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
