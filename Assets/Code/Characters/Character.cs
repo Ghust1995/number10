@@ -3,19 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngineInternal;
 
-public enum AbilityType
-{
-    Poke,
-    Stun,
-    Nuke,
-    Heal,
-    Swap,
-    Barr,
-    //Buff,
-    //Wall,
-    //Tank,
-};
-
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CircleCollider2D))]
 public abstract class Character : MonoBehaviour

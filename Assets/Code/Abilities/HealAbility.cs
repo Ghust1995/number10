@@ -4,10 +4,12 @@ using System.Collections;
 public class HealAbility : Ability
 {
     [SerializeField]
-    private float _healingDone = 10;
+    [ImportData("ability_heal", "healing_done", ImportType.Float)]
+    private float _healingDone;
 
     [SerializeField]
-    private float _timeToHeal = 1;
+    [ImportData("ability_heal", "cast_time", ImportType.Float)]
+    private float _timeToHeal;// = ImportData.GetContainer("ability_heal").GetData("cast_time").ToFloat();
 
     protected override void Cast(AbilityCastEventArgs e)
     {

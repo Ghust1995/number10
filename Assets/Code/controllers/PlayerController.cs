@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             if (Deselect != null)
             {
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             if (AbilityCast != null)
             {

@@ -1,5 +1,18 @@
 ﻿using UnityEngine;
 
+public enum AbilityType
+{
+    Poke,
+    Stun,
+    Nuke,
+    Heal,
+    Swap,
+    Barr,
+    //Buff,
+    //Wall, Copy
+    //Tank, Taunt
+};
+
 public abstract class Ability : MonoBehaviour
 {
     [SerializeField]
