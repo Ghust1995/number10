@@ -10,10 +10,14 @@ public abstract class Ability : MonoBehaviour
     [SerializeField]
     protected AbilitiesData Data;
 
+    
+
     [ExecuteInEditMode]
     protected abstract AbilityType GetAbilityType();
 
     [SerializeField]
+    private Cooldown _cooldownPrefab;
+
     public Cooldown Cooldown { get; private set; }
 
     protected virtual void Reset()
@@ -35,15 +39,16 @@ public abstract class Ability : MonoBehaviour
     protected virtual void Start()
     {
         ResetData();
-        Cooldown = GetComponentInChildren<Cooldown>();
+        Cooldown = Instantiate(_cooldownPrefab, transform, false) as Cooldown;
+        Cooldown.Initialize(Data.Cooldown);
     }
 
-    public void Cast(object sender, AbilityCastEventArgs e)
+    public void TryCast(Character caster, AbilityCastEventArgs e)
     {
         if (Cooldown.OnCooldown) return;
-        Cast(e);
+        Cast(caster, e);
     }
 
-    protected abstract void Cast(AbilityCastEventArgs e);
+    protected abstract void Cast(Character caster, AbilityCastEventArgs e);
 }
 

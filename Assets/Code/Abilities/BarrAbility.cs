@@ -22,7 +22,7 @@ public class BarrAbility : Ability
         _barrier.Initialize(Data.Objectspeed);
     }
 
-    protected override void Cast(AbilityCastEventArgs e)
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -31,15 +31,16 @@ public class BarrAbility : Ability
             if (charSelected)
             {
                 charSelected.GetComponent<SpriteRenderer>().color = Color.magenta;
-                StartCoroutine(PutBarrier(charSelected));
+                StartCoroutine(PutBarrier(caster, charSelected));
             }
         }
     }
 
-    IEnumerator PutBarrier(Character charSelected)
+    IEnumerator PutBarrier(Character caster, Character charSelected)
     {
         Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Cooldown);        
+        yield return new WaitForSeconds(Data.Cooldown);
+        if(caster.Stun.IsStunned) yield break; ;
         _barrier.transform.parent = charSelected.transform;
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;

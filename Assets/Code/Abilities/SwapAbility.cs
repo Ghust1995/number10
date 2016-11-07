@@ -13,7 +13,7 @@ public class SwapAbility : Ability
         return AbilityType.Swap;
     }
 
-    protected override void Cast(AbilityCastEventArgs e)
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
         if (hit)
@@ -30,16 +30,17 @@ public class SwapAbility : Ability
                 {
                     _char2 = charSelected;
                     // Swap characters after some time
-                    StartCoroutine(SwapCharacters());
+                    StartCoroutine(SwapCharacters(caster));
                 }
             }
         }
     }
 
-    IEnumerator SwapCharacters()
+    IEnumerator SwapCharacters(Character caster)
     {
         Cooldown.ResetCooldown();
         yield return new WaitForSeconds(Data.Casttime);
+        if (caster.Stun.IsStunned) yield break;
         var char1pos = _char1.transform.position;
         _char1.transform.position = _char2.transform.position;
         _char2.transform.position = char1pos;

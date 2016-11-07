@@ -11,15 +11,16 @@ public class StunAbility : Ability
         return AbilityType.Stun;
     }
 
-    protected override void Cast(AbilityCastEventArgs e)
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        StartCoroutine(Stun(e.TargetEnemy));
+        StartCoroutine(Stun(caster, e.TargetEnemy));
     }
 
-    IEnumerator Stun(GameObject target)
+    IEnumerator Stun(Character caster, GameObject target)
     {
         Cooldown.ResetCooldown();
         yield return new WaitForSeconds(Data.Casttime);
+        if (caster.Stun.IsStunned) yield break;
         var bullet = Instantiate(_stunBulletPrefab, this.transform) as StunBullet;
         bullet.transform.localPosition = Vector3.zero;
         bullet.Initialize(Data.Objectspeed, Data.Power, Data.Effectduration, target);

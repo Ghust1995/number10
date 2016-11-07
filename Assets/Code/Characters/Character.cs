@@ -55,6 +55,6 @@ public abstract class Character : MonoBehaviour
             return;
         }
         if (Stun.IsStunned) return;
-        Ability.Cast(sender, e);
+        Ability.TryCast(this, e);
     }
 }

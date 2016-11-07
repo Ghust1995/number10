@@ -4,9 +4,9 @@
     Stun,
     Nuke,
     Heal,
-    Swap,
+    Swap, //
     Barr,
-    //Buff,
+    //Buff, 
     //Wall, Copy
     //Tank, Taunt
 };

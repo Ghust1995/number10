@@ -11,19 +11,19 @@ public class NukeAbility : Ability
         return AbilityType.Nuke;
     }
 
-    protected override void Cast(AbilityCastEventArgs e)
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         GetComponent<SpriteRenderer>().color = Color.green;
-        StartCoroutine(Nuke(e.TargetEnemy.GetComponent<Character>()));
+        StartCoroutine(Nuke(caster, e.TargetEnemy.GetComponent<Character>()));
         Cooldown.ResetCooldown();
     }
 
-    IEnumerator Nuke(Character target)
+    private IEnumerator Nuke(Character caster, Character target)
     {
         Cooldown.ResetCooldown();
         yield return new WaitForSeconds(Data.Casttime);
         GetComponent<SpriteRenderer>().color = Color.white;
-
+        if (caster.Stun.IsStunned) yield break;
         var nukeObject = Instantiate(_nukeObjectPrefab);
         Vector3 direction = target.transform.position - transform.position;
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * 360 / (2 * Mathf.PI);
@@ -33,9 +33,8 @@ public class NukeAbility : Ability
         {
             target.Health.Damage(Data.Power);
             yield return new WaitForSeconds(Data.Effectduration/Data.Ticks);
+            if (caster.Stun.IsStunned) break;
         }
         Destroy(nukeObject);
-
-
     }
 }

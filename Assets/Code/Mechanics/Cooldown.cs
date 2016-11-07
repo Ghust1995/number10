@@ -21,6 +21,11 @@ public class Cooldown : MonoBehaviour {
         _time = _cooldown;
     }
 
+    public void Initialize(float cooldown)
+    {
+        _cooldown = cooldown;
+    }
+
     void Start()
     {
         _cooldownBar = GetComponentInChildren<Slider>();

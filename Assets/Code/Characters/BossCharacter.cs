@@ -26,6 +26,7 @@ public class BossCharacter : Character
         Ability = AbilityBuilder[_abilityType];
         BossController.AbilityCast += CastAbility;
         OnDestroyCallbacks += () => { BossController.AbilityCast -= this.CastAbility; };
+        Stun.DoStun(10);
     }
 
     public void SetAbility(AbilityType type)
