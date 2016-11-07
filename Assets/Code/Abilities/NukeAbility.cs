@@ -4,19 +4,12 @@ using UnityEngine;
 public class NukeAbility : Ability
 {
     [SerializeField]
-    private float _damagePerHit = 50;
-
-    [SerializeField]
-    private float _timeToDamage = 2;
-
-    [SerializeField]
-    private int _numberOfHits = 4;
-
-    [SerializeField]
-    private float _timePerHit = 0.5f;
-
-    [SerializeField]
     private GameObject _nukeObjectPrefab;
+
+    protected override AbilityType GetAbilityType()
+    {
+        return AbilityType.Nuke;
+    }
 
     protected override void Cast(AbilityCastEventArgs e)
     {
@@ -28,7 +21,7 @@ public class NukeAbility : Ability
     IEnumerator Nuke(Character target)
     {
         Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(_timeToDamage);
+        yield return new WaitForSeconds(Data.Casttime);
         GetComponent<SpriteRenderer>().color = Color.white;
 
         var nukeObject = Instantiate(_nukeObjectPrefab);
@@ -36,10 +29,10 @@ public class NukeAbility : Ability
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * 360 / (2 * Mathf.PI);
         nukeObject.transform.rotation = Quaternion.Euler(0, 0, directionAngle);
         nukeObject.transform.position = transform.position + direction/2;
-        for (int i = 0; i < _numberOfHits; i++)
+        for (int i = 0; i < Data.Ticks; i++)
         {
-            target.Health.Damage(_damagePerHit);
-            yield return new WaitForSeconds(_timePerHit);
+            target.Health.Damage(Data.Power);
+            yield return new WaitForSeconds(Data.Effectduration/Data.Ticks);
         }
         Destroy(nukeObject);
 

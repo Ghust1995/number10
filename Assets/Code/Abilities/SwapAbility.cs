@@ -3,12 +3,15 @@ using System.Collections;
 
 public class SwapAbility : Ability
 {
-    public const float TimeToSwap = 1.0f;
-
     [SerializeField]
     private Character _char1;
     [SerializeField]
     private Character _char2;
+
+    protected override AbilityType GetAbilityType()
+    {
+        return AbilityType.Swap;
+    }
 
     protected override void Cast(AbilityCastEventArgs e)
     {
@@ -35,14 +38,14 @@ public class SwapAbility : Ability
 
     IEnumerator SwapCharacters()
     {
-        yield return new WaitForSeconds(TimeToSwap);
+        Cooldown.ResetCooldown();
+        yield return new WaitForSeconds(Data.Casttime);
         var char1pos = _char1.transform.position;
         _char1.transform.position = _char2.transform.position;
         _char2.transform.position = char1pos;
         _char1.GetComponent<SpriteRenderer>().color = Color.white;
         _char2.GetComponent<SpriteRenderer>().color = Color.white;
         _char1 = null;
-        _char2 = null;
-        Cooldown.ResetCooldown();
+        _char2 = null;        
     }
 }

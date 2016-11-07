@@ -3,37 +3,61 @@ using System.Collections;
 
 public class PokeBullet : MonoBehaviour {
 
-	[SerializeField]
+    [SerializeField]
 	private float _speed = 10f;
 
-	[SerializeField]
-	private float _damageDone = 10;
+    [SerializeField]
+    private float _damageDone = 10;
 
-	[SerializeField]
-	private float _timeToDamage = 1;
+    private GameObject _target;
 
     [SerializeField]
     private float _timeToDestroy = 0.5f;
 
     private bool _hitTarget = false;
+
+    private bool _initialized = false;
+
+    public void Initialize(float speed, float damageDone, GameObject target)
+    {
+        if (_initialized)
+        {
+            Debug.LogError("Bullet already initialized!");
+            return;
+        }
+        _speed = speed;
+        _damageDone = damageDone;
+        _target = target;
+        _initialized = true;
+    }
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    if (_hitTarget) return;
-		transform.localPosition += transform.right * _speed * Time.deltaTime; //Bullet going in boss direction (your own right direction)
-	}
+        if (!_initialized)
+        {
+            Debug.LogError("Bullet not initialized!");
+            return;
+        }
+        if (_hitTarget) return;
+
+        Vector3 direction = (_target.transform.position - transform.position).normalized;
+        float directionAngle = Mathf.Atan2(direction.y, direction.x);
+        directionAngle *= 360 / (2 * Mathf.PI);
+        transform.rotation = Quaternion.Euler(0, 0, directionAngle);
+        transform.localPosition += transform.right * _speed * Time.deltaTime;
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
-        if (barrierHit && barrierHit.transform.parent.gameObject == Target)
+        if (barrierHit && barrierHit.transform.parent.gameObject == _target)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
             StartCoroutine(Destroy());
         }
-        if (other.gameObject != Target) return;
+        if (other.gameObject != _target) return;
 
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         _hitTarget = true;
@@ -41,16 +65,10 @@ public class PokeBullet : MonoBehaviour {
         if (targetChar)
         {
             targetChar.GetComponent<SpriteRenderer>().color = Color.gray;
-            StartCoroutine(DoDamage(targetChar));
+            targetChar.Health.Damage(_damageDone);
+            targetChar.GetComponent<SpriteRenderer>().color = Color.white;
+            StartCoroutine(Destroy());
         }
-    }
-
-    IEnumerator DoDamage(Character targetChar)
-	{
-		yield return new WaitForSeconds (_timeToDamage);
-		targetChar.Health.Damage(_damageDone);
-		targetChar.GetComponent<SpriteRenderer>().color = Color.white;
-        StartCoroutine(Destroy());
     }
 
     IEnumerator Destroy()
@@ -58,9 +76,5 @@ public class PokeBullet : MonoBehaviour {
         yield return new WaitForSeconds(_timeToDestroy);
         Destroy(gameObject);
     }
-
-
-
-    public GameObject Target { set; private get; }
 }
 		

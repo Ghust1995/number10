@@ -8,8 +8,10 @@ public class BarrAbility : Ability
 
     private Barrier _barrier;
 
-    [SerializeField]
-    private float _timeToApplyBarrier = 1;
+    protected override AbilityType GetAbilityType()
+    {
+        return AbilityType.Barr;
+    }
 
     protected override void Start()
     {
@@ -17,6 +19,7 @@ public class BarrAbility : Ability
         _barrier = Instantiate(_barrierPrefab);
         _barrier.transform.parent = transform;
         _barrier.SetCenter(transform);
+        _barrier.Initialize(Data.Objectspeed);
     }
 
     protected override void Cast(AbilityCastEventArgs e)
@@ -36,7 +39,7 @@ public class BarrAbility : Ability
     IEnumerator PutBarrier(Character charSelected)
     {
         Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(_timeToApplyBarrier);
+        yield return new WaitForSeconds(Data.Cooldown);        
         _barrier.transform.parent = charSelected.transform;
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;

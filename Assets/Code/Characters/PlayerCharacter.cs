@@ -32,6 +32,7 @@ public class PlayerCharacter : Character
         Ability = GetComponent<Ability>();
         PlayerController.AbilityCast += this.CastAbility;
         PlayerController.Deselect += this.Deselect;
+
         OnDestroyCallbacks += () => {
             PlayerController.AbilityCast -= this.CastAbility;
             PlayerController.Deselect -= this.Deselect;
