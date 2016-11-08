@@ -3,16 +3,10 @@ using System.Collections;
 
 public class HealAbility : Ability
 {
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Heal;
     }
-    
-    //[SerializeField]
-    //private float _healingDone = ;
-
-    //[SerializeField]
-    //private float _timeToHeal;// = ImportData.GetContainer("ability_heal").GetData("cast_time").ToFloat();
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
@@ -32,7 +26,7 @@ public class HealAbility : Ability
         charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
         for (int i = 0; i < Data.Ticks; i++)
         {
-            charSelected.Health.Heal(Data.Power);
+            charSelected.Health.Heal(Power);
             yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
             if (caster.Stun.IsStunned) break;
         }

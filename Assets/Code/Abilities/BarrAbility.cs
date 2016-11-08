@@ -8,7 +8,7 @@ public class BarrAbility : Ability
 
     private Barrier _barrier;
 
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Barr;
     }
@@ -16,10 +16,18 @@ public class BarrAbility : Ability
     protected override void Start()
     {
         base.Start();
-        _barrier = Instantiate(_barrierPrefab);
-        _barrier.transform.parent = transform;
+        if (_barrierPrefab == null)
+        {
+            _barrierPrefab = Resources.Load<Barrier>("Prefabs/Barrier");
+        }
+        _barrier = Instantiate(_barrierPrefab, transform) as Barrier;
         _barrier.SetCenter(transform);
         _barrier.Initialize(Data.Objectspeed);
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(_barrier.gameObject);
     }
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)

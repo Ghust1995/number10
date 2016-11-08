@@ -128,6 +128,7 @@ namespace UnityQuickSheet
                     {
                         try
                         {
+                            //if(property.PropertyType. == Prop)
                             var value = ConvertFrom(cell, property.PropertyType);
 
                             if (property.PropertyType.IsArray)
@@ -252,6 +253,18 @@ namespace UnityQuickSheet
                         value = Convert.ToInt32(cell.StringCellValue);
                     if (t == typeof(long))
                         value = Convert.ToInt64(cell.StringCellValue);
+                }
+                // Add support to numeric formulas
+                else if (cell.CellType == NPOI.SS.UserModel.CellType.Formula)
+                {
+                    if (t == typeof(float))
+                        value = Convert.ToSingle(cell.NumericCellValue);
+                    if (t == typeof(double))
+                        value = Convert.ToDouble(cell.NumericCellValue);
+                    if (t == typeof(int))
+                        value = Convert.ToInt32(cell.NumericCellValue);
+                    if (t == typeof(long))
+                        value = Convert.ToInt64(cell.NumericCellValue);
                 }
             }
             else if (t == typeof(string) || t.IsArray)

@@ -11,8 +11,26 @@ public abstract class Ability : MonoBehaviour
     [SerializeField]
     protected AbilitiesData Data;
 
+    protected float Power
+    {
+        get { return Data.Power * _powerMultiplier; }
+    }
+    
+    private float _powerMultiplier = 1;
+    public float PowerMultiplier { get {return Mathf.Max(_powerMultiplier, 1.0f);} private set { _powerMultiplier = value; } }
+
+    public void IncreasePower(float value)
+    {
+        PowerMultiplier *= value;
+    }
+
+    public void ResetPowerIncrease()
+    {
+        PowerMultiplier = 0;
+    }
+
     [ExecuteInEditMode]
-    protected abstract AbilityType GetAbilityType();
+    public abstract AbilityType GetAbilityType();
 
     [SerializeField]
     private Cooldown _cooldownPrefab;
@@ -38,6 +56,10 @@ public abstract class Ability : MonoBehaviour
     protected virtual void Start()
     {
         ResetData();
+        if (_cooldownPrefab == null)
+        {
+            _cooldownPrefab = Resources.Load<Cooldown>("Prefabs/Cooldown");
+        }
         Cooldown = Instantiate(_cooldownPrefab, transform, false) as Cooldown;
         Cooldown.Initialize(Data.Cooldown);
     }
@@ -53,6 +75,7 @@ public abstract class Ability : MonoBehaviour
     protected IEnumerator DoCastLogic(Character caster, Character target, Func<Character, Character, IEnumerator> castLogic)
     {
         Cooldown.ResetCooldown();
+        if (caster.TauntingTarget != null) target = caster.TauntingTarget;
         yield return new WaitForSeconds(Data.Casttime);
         if (caster.Stun.IsStunned) yield break;
         caster.IsCasting = true;

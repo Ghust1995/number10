@@ -356,7 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a545ae15b989645ae828956f00d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 0}
   Data:
     abilitytype: 0
     casttime: 0
@@ -393,7 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becf0e0755b4eb540a83645f1f1dfe23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 0}
   Data:
     abilitytype: 0
     casttime: 0
@@ -465,7 +463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bab253e785dcea4cb3b45270b02e9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 0}
   Data:
     abilitytype: 0
     casttime: 0
@@ -537,7 +534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7646187148077634ba1a8d6e288198d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 0}
   Data:
     abilitytype: 0
     casttime: 0
@@ -685,17 +681,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4538ee65c6a19744af994c0435f7df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 11400000, guid: 6f8b9442624aa714898c7dbbaf3c8706, type: 2}
   Data:
     abilitytype: 3
     casttime: 0.5
     cooldown: 5
-    power: 30
-    effectduration: 0
-    ticks: 0
+    power: 5
+    effectduration: 2
+    ticks: 4
     objectspeed: 0
-  _cooldownPrefab: {fileID: 114000013025214330, guid: 9f64948cfe10c1a42be041e94179e1fd,
-    type: 2}
+  _cooldownPrefab: {fileID: 0}
 --- !u!114 &114000013509251802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -707,7 +701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf2317eeea2179408f18307297e2b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Constants: {fileID: 0}
   Data:
     abilitytype: 0
     casttime: 0
@@ -720,6 +713,7 @@ MonoBehaviour:
     type: 2}
   _char1: {fileID: 0}
   _char2: {fileID: 0}
+  _banishObjectPrefab: {fileID: 0}
 --- !u!114 &114000013921381498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -758,8 +752,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0ea384bd80fae4bbc5fed2229f66cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Data:
+    charactertype: 0
+    health: 0
+    startstun: 0
   Health: {fileID: 0}
   Stun: {fileID: 0}
+  IsCasting: 0
   _abilityType: 0
 --- !u!212 &212000012281180888
 SpriteRenderer:

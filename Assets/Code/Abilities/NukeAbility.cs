@@ -6,9 +6,18 @@ public class NukeAbility : Ability
     [SerializeField]
     private GameObject _nukeObjectPrefab;
 
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Nuke;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        if (_nukeObjectPrefab == null)
+        {
+            _nukeObjectPrefab = Resources.Load<GameObject>("Prefabs/NukeSprite");
+        }
     }
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
@@ -28,7 +37,7 @@ public class NukeAbility : Ability
         nukeObject.transform.position = transform.position + direction/2;
         for (int i = 0; i < Data.Ticks; i++)
         {
-            target.Health.Damage(Data.Power);
+            target.Health.Damage(Power);
             yield return new WaitForSeconds(Data.Effectduration/Data.Ticks);
             if (caster.Stun.IsStunned) break;
         }

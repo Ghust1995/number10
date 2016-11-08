@@ -4,9 +4,23 @@
     Stun,
     Nuke,
     Heal,
-    Swap, //
+    Swap,
     Barr,
-    //Buff, 
-    //Wall, Copy
-    //Tank, Taunt
+    Copy,
+    Taunt,
+    Buff, 
+};
+
+public enum CharacterType
+{
+    Poker,
+    Stuner,
+    Nuker,
+    Healer,
+    Swapper,
+    Barrier,
+    Ditto,
+    Taunter,
+    Buffer, 
+    Boss,
 };

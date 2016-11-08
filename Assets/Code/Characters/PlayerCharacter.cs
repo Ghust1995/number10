@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -20,28 +21,36 @@ public class PlayerCharacter : Character
         _isSelected = false;
     }
 
-    protected void CastAbility(object sender, AbilityCastEventArgs e)
+    protected override void CastAbility(object sender, AbilityCastEventArgs e)
     {
         if (!_isSelected) return;
         base.CastAbility(sender, e);
     }
 
+    public override CharacterType GetCharacterType()
+    {
+        // Really bad
+        if(Ability == null) Ability = GetComponent<Ability>();
+        return (CharacterType)Ability.GetAbilityType();
+    }
+
     public override void Start()
     {
         base.Start();
-        Ability = GetComponent<Ability>();
-        PlayerController.AbilityCast += this.CastAbility;
-        PlayerController.Deselect += this.Deselect;
+        Ability = GetComponents<Ability>().First((c) => c.enabled);
+        PlayerController.AbilityCastEvent += this.CastAbility;
+        PlayerController.DeselectEvent += this.Deselect;
 
         OnDestroyCallbacks += () => {
-            PlayerController.AbilityCast -= this.CastAbility;
-            PlayerController.Deselect -= this.Deselect;
+            PlayerController.AbilityCastEvent -= this.CastAbility;
+            PlayerController.DeselectEvent -= this.Deselect;
             _isSelected = false;
         };
     }
 
     public override void Update()
     {
+        Ability = GetComponents<Ability>().First((c) => c.enabled);
         base.Update();
     }
 }

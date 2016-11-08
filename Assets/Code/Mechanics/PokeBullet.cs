@@ -17,6 +17,7 @@ public class PokeBullet : MonoBehaviour {
     private bool _hitTarget = false;
 
     private bool _initialized = false;
+    private Vector3 _direction;
 
     public void Initialize(float speed, float damageDone, GameObject target)
     {
@@ -29,6 +30,7 @@ public class PokeBullet : MonoBehaviour {
         _damageDone = damageDone;
         _target = target;
         _initialized = true;
+        _direction = (_target.transform.position - transform.position).normalized;
     }
 	
 	// Update is called once per frame
@@ -40,9 +42,7 @@ public class PokeBullet : MonoBehaviour {
             return;
         }
         if (_hitTarget) return;
-
-        Vector3 direction = (_target.transform.position - transform.position).normalized;
-        float directionAngle = Mathf.Atan2(direction.y, direction.x);
+        float directionAngle = Mathf.Atan2(_direction.y, _direction.x);
         directionAngle *= 360 / (2 * Mathf.PI);
         transform.rotation = Quaternion.Euler(0, 0, directionAngle);
         transform.localPosition += transform.right * _speed * Time.deltaTime;

@@ -7,7 +7,12 @@ public class Health : MonoBehaviour
 
     [SerializeField]
     private float _maxHealth = 100;
-    
+
+    public void Initialize(float maxHealth)
+    {
+        _maxHealth = maxHealth;
+    }
+
     public float Value { get; private set; }
     
     public void Damage(float damageDealt)

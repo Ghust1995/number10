@@ -6,7 +6,16 @@ public class PokeAbility : Ability
     [SerializeField]
     private PokeBullet _pokeBulletPrefab;
 
-    protected override AbilityType GetAbilityType()
+    protected override void Start()
+    {
+        base.Start();
+        if (_pokeBulletPrefab == null)
+        {
+            _pokeBulletPrefab = Resources.Load<PokeBullet>("Prefabs/PokeBullet");
+        }
+    }
+
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Poke;
     }
@@ -20,7 +29,7 @@ public class PokeAbility : Ability
     {
         var bullet = Instantiate(_pokeBulletPrefab, this.transform) as PokeBullet;
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Initialize(Data.Objectspeed, Data.Power, target.gameObject);
+        bullet.Initialize(Data.Objectspeed, Power, target.gameObject);
         yield break;
     }
 }

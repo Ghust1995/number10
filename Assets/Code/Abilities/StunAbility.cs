@@ -6,9 +6,18 @@ public class StunAbility : Ability
     [SerializeField]
     private StunBullet _stunBulletPrefab;
 
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Stun;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        if (_stunBulletPrefab == null)
+        {
+            _stunBulletPrefab = Resources.Load<StunBullet>("Prefabs/StunBullet");
+        }
     }
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
@@ -20,7 +29,7 @@ public class StunAbility : Ability
     {
         var bullet = Instantiate(_stunBulletPrefab, this.transform) as StunBullet;
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Initialize(Data.Objectspeed, Data.Power, Data.Effectduration, target.gameObject);
+        bullet.Initialize(Data.Objectspeed, Power, Data.Effectduration, target.gameObject);
         yield break;
     }
 }
