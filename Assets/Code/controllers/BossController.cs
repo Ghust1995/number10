@@ -9,7 +9,7 @@ public class BossController : MonoBehaviour
 
     private BossCharacter _boss;
 
-    private List<GameObject> _targetCharacters;
+    private List<Character> _targetCharacters;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class BossController : MonoBehaviour
     void Update()
     {
         // Update available characters, could be done with some death event
-        _targetCharacters = FindObjectOfType<CharacterPositioning>().InstantiatedCharacters.Select(c => c.gameObject).ToList();
+        _targetCharacters = FindObjectOfType<CharacterPositioning>().InstantiatedCharacters;
 
         //Choose which skill to use
         AbilityType chosenAbility;
@@ -43,7 +43,7 @@ public class BossController : MonoBehaviour
             var targetEnemy = _targetCharacters[(++_iteration) % _targetCharacters.Count];
             AbilityCast.Invoke(this, new AbilityCastEventArgs
             {
-                Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
+                //Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
                 TargetEnemy = targetEnemy
             });
         }

@@ -27,26 +27,7 @@ public class SwapAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
-        {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                StartCoroutine(DoCastLogic(caster, charSelected, Ban));
-                //charSelected.GetComponent<SpriteRenderer>().color = Color.cyan;
-                //if (_char1 == null)
-                //{
-                //    _char1 = charSelected;
-                //}
-                //else if (_char2 == null)
-                //{
-                //    _char2 = charSelected;
-                //    // Swap characters after some time
-                //    StartCoroutine(DoCastLogic(caster, null, SwapCharacters));
-                //}
-            }
-        }
+        StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Ban));
     }
 
     IEnumerator Ban(Character caster, Character target)

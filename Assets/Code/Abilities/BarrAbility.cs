@@ -13,6 +13,18 @@ public class BarrAbility : Ability
         return AbilityType.Barr;
     }
 
+    public override void IncreasePower(float value)
+    {
+        base.IncreasePower(value);
+        _barrier.transform.localScale *= PowerMultiplier;
+    }
+
+    public override void ResetPowerIncrease()
+    {
+        _barrier.transform.localScale /= PowerMultiplier;
+        base.ResetPowerIncrease();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -20,7 +32,7 @@ public class BarrAbility : Ability
         {
             _barrierPrefab = Resources.Load<Barrier>("Prefabs/Barrier");
         }
-        _barrier = Instantiate(_barrierPrefab, transform) as Barrier;
+        _barrier = Instantiate(_barrierPrefab);
         _barrier.SetCenter(transform);
         _barrier.Initialize(Data.Objectspeed);
     }
@@ -32,21 +44,12 @@ public class BarrAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
-        {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                charSelected.GetComponent<SpriteRenderer>().color = Color.magenta;
-                StartCoroutine(DoCastLogic(caster, charSelected, PutBarrier));
-            }
-        }
+        StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, PutBarrier));
     }
 
     IEnumerator PutBarrier(Character caster, Character charSelected)
     {
-        _barrier.transform.parent = charSelected.transform;
+        //_barrier.transform.parent = charSelected.transform;
         _barrier.SetCenter(charSelected.transform);
         charSelected.GetComponent<SpriteRenderer>().color = Color.white;
         yield break;

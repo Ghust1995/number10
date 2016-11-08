@@ -10,15 +10,7 @@ public class CopyAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
-        {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                StartCoroutine(DoCastLogic(caster, charSelected, Copy));
-            }
-        }
+                StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Copy));
     }
 
     IEnumerator Copy(Character caster, Character charSelected)

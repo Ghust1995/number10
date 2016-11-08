@@ -10,15 +10,8 @@ public class BuffAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
-        {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                StartCoroutine(DoCastLogic(caster, charSelected, Buff));
-            }
-        }
+
+        StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Buff));
     }
 
     IEnumerator Buff(Character caster, Character charSelected)

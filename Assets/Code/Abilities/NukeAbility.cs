@@ -22,13 +22,14 @@ public class NukeAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        GetComponent<SpriteRenderer>().color = Color.green;
+        GetComponent<SpriteRenderer>().color = Color.white;
         StartCoroutine(DoCastLogic(caster, e.TargetEnemy.GetComponent<Character>(), Nuke));
         Cooldown.ResetCooldown();
     }
 
     private IEnumerator Nuke(Character caster, Character target)
     {
+
         GetComponent<SpriteRenderer>().color = Color.white;
         var nukeObject = Instantiate(_nukeObjectPrefab);
         Vector3 direction = target.transform.position - transform.position;

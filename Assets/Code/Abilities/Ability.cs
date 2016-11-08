@@ -19,12 +19,12 @@ public abstract class Ability : MonoBehaviour
     private float _powerMultiplier = 1;
     public float PowerMultiplier { get {return Mathf.Max(_powerMultiplier, 1.0f);} private set { _powerMultiplier = value; } }
 
-    public void IncreasePower(float value)
+    public virtual void IncreasePower(float value)
     {
         PowerMultiplier *= value;
     }
 
-    public void ResetPowerIncrease()
+    public virtual void ResetPowerIncrease()
     {
         PowerMultiplier = 0;
     }
