@@ -8,6 +8,11 @@ public class BuffAbility : Ability
         return AbilityType.Buff;
     }
 
+    protected override bool RequiresTarget()
+    {
+        return true;
+    }
+
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
 

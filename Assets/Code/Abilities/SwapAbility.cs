@@ -13,6 +13,11 @@ public class SwapAbility : Ability
         return AbilityType.Swap;
     }
 
+    protected override bool RequiresTarget()
+    {
+        return true;
+    }
+
     [SerializeField]
     private GameObject _banishObjectPrefab;
 
@@ -21,7 +26,7 @@ public class SwapAbility : Ability
         base.Start();
         if (_banishObjectPrefab == null)
         {
-            _banishObjectPrefab = Resources.Load<GameObject>("Prefabs/BanishSprite");
+            _banishObjectPrefab = Resources.Load<GameObject>("Prefabs/UI/BanishSprite");
         }
     }
 

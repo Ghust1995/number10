@@ -20,6 +20,9 @@ public class StunBullet : MonoBehaviour {
     private GameObject _target;
     private Vector3 _direction;
 
+    private AudioClip _onHitSound;
+    private AudioClip _onMissSound;
+
     public void Initialize(float speed, float damageDone, float stunTime, GameObject target)
     {
         if (_initialized)
@@ -33,6 +36,9 @@ public class StunBullet : MonoBehaviour {
         _stunTime = stunTime;
         _initialized = true;
         _direction = (_target.transform.position - transform.position).normalized;
+
+        _onHitSound = Resources.Load<AudioClip>("SFX/poke_hit");
+        _onMissSound = Resources.Load<AudioClip>("SFX/poke_miss");
     }
 
     // Update is called once per frame
@@ -54,11 +60,12 @@ public class StunBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
-        if (barrierHit && barrierHit.transform.parent.gameObject == _target)
+        if (barrierHit && barrierHit.Owner.gameObject == _target)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
             StartCoroutine(Destroy());
+            GetComponent<AudioSource>().PlayOneShot(_onMissSound);
         }
         if (other.gameObject != _target) return;
 
@@ -71,6 +78,7 @@ public class StunBullet : MonoBehaviour {
             targetChar.Health.Damage(_damageDone);
             targetChar.Stun.DoStun(_stunTime);
             targetChar.GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<AudioSource>().PlayOneShot(_onHitSound);
             StartCoroutine(Destroy());
         }
     }

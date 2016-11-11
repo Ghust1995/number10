@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -48,7 +47,7 @@ public abstract class Character : MonoBehaviour
 
     protected void ResetData()
     {
-        Constants = AssetDatabase.LoadAssetAtPath<Characters>("Assets/Resources/Characters.asset");
+        Constants = Resources.Load<Characters>("Characters");
         for (int i = 0; i < Constants.dataArray.Length; i++)
         {
             // Horrivel
@@ -70,6 +69,20 @@ public abstract class Character : MonoBehaviour
     public virtual void Start()
     {
         ResetData();
+        Health = GetComponentInChildren<Health>();
+        if (Health == null)
+        {
+            var _healthPrefab = Resources.Load<Health>("Prefabs/Mechanics/Health");
+            Health = Instantiate(_healthPrefab, transform, false) as Health;
+        }
+
+        Stun = GetComponentInChildren<Stun>();
+        if (Stun == null)
+        {
+            var _stunPrefab = Resources.Load<Stun>("Prefabs/Mechanics/Stun");
+            Stun = Instantiate(_stunPrefab, transform, false) as Stun;
+        }
+
         AbilityBuilder = new Dictionary<AbilityType, Func<Ability>>()
         {
             {AbilityType.Poke, GetAbility<PokeAbility>},
@@ -78,16 +91,31 @@ public abstract class Character : MonoBehaviour
             {AbilityType.Heal, GetAbility<HealAbility>},
             {AbilityType.Swap, GetAbility<SwapAbility>},
             {AbilityType.Barr, GetAbility<BarrAbility>},
+            {AbilityType.Taunt, GetAbility<TauntAbility>},
+            {AbilityType.Buff, GetAbility<BuffAbility>},
             {AbilityType.Copy, GetAbility<CopyAbility>},
-            //{AbilityType.Wall, GetAbility<WallAbility>()},
-            //{AbilityType.Tank, GetAbility<TankAbility>()},
+            
         };
-        Health = GetComponentInChildren<Health>();
+        
         Health.Initialize(Data.Health);
-        Stun = GetComponentInChildren<Stun>();
         Stun.DoStun(Data.Startstun);
+
+        var uiCircleColliderObject = new GameObject {layer = LayerMask.NameToLayer("UI")};
+        uiCircleColliderObject.transform.position = transform.position;
+        uiCircleColliderObject.name = "Selectable" + gameObject.name;
+        gameObject.transform.parent = uiCircleColliderObject.transform;
+        var uiCircleCollider = uiCircleColliderObject.AddComponent<CircleCollider2D>();
+        uiCircleCollider.isTrigger = true;
+        uiCircleCollider.radius = GetComponent<CircleCollider2D>().radius;
+
+        
+
+
         // The collider is trigger
         GetComponent<CircleCollider2D>().isTrigger = true;
+        // Make the collider more friendly
+        GetComponent<CircleCollider2D>().radius *= 0.0f;
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
         // Register to taunt events
         TauntEventHandler tauntCb = (sender, args) => { TauntingTarget = args.TauntingCharacter; };

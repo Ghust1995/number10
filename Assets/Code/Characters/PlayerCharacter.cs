@@ -7,18 +7,28 @@ using UnityEngine;
 public class PlayerCharacter : Character
 {
     [SerializeField]
-    private bool _isSelected = false;
+    private bool _isSelected;
+
+    private GameObject _selectionSprite;
+
+    public bool IsSelected
+    {
+        get { return _isSelected; }
+        set
+        {
+            _selectionSprite.SetActive(value);
+            _isSelected = value;
+        }
+    }
 
     public void Select()
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
-        _isSelected = true;
+        IsSelected = true;
     }
 
     public void Deselect(object sender, EventArgs e)
     {
-        GetComponent<SpriteRenderer>().color = Color.white;
-        _isSelected = false;
+        IsSelected = false;
     }
 
     protected override void CastAbility(object sender, AbilityCastEventArgs e)
@@ -37,6 +47,12 @@ public class PlayerCharacter : Character
     public override void Start()
     {
         base.Start();
+        if (_selectionSprite == null)
+        {
+            _selectionSprite = Instantiate(Resources.Load<GameObject>("Prefabs/UI/SelectionSprite"), transform) as GameObject;
+            _selectionSprite.transform.localPosition = _selectionSprite.transform.position;
+            //_selectionSprite.SetActive(false);
+        }
         Ability = GetComponents<Ability>().First((c) => c.enabled);
         PlayerController.AbilityCastEvent += this.CastAbility;
         PlayerController.DeselectEvent += this.Deselect;

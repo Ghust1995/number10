@@ -21,6 +21,11 @@ public class TauntAbility : Ability
         return AbilityType.Taunt;
     }
 
+    protected override bool RequiresTarget()
+    {
+        return true;
+    }
+
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Taunt));

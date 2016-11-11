@@ -50,10 +50,10 @@ MonoBehaviour:
     ticks: 0
     objectspeed: 5
   - abilitytype: 4
-    casttime: 0.3
+    casttime: 0
     cooldown: 5
     power: 0
-    effectduration: 1
+    effectduration: 2
     ticks: 0
     objectspeed: 0
   - abilitytype: 6

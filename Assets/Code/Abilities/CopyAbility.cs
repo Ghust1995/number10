@@ -8,6 +8,11 @@ public class CopyAbility : Ability
         return AbilityType.Copy;
     }
 
+    protected override bool RequiresTarget()
+    {
+        return true;
+    }
+
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
                 StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Copy));

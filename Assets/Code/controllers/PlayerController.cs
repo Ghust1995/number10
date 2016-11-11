@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
             var hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
             if (hit)
             {
-                var charSelected = hit.transform.GetComponent<PlayerCharacter>();
+                var charSelected = hit.transform.GetComponentInChildren<PlayerCharacter>();
                 if (charSelected)
                 {
                     charSelected.Select();
@@ -44,14 +44,14 @@ public class PlayerController : MonoBehaviour
         {
             var rayPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
-            if (!hit) return;
+            var targetedCharacter = !hit ? null : hit.transform.GetComponentInChildren<Character>();
             if (AbilityCastEvent != null)
             {
                 AbilityCastEvent.Invoke(this, new AbilityCastEventArgs
                 {
                     //Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
                     TargetEnemy = FindObjectOfType<BossCharacter>(),
-                    TargetedCharacter = hit.transform.GetComponent<Character>()
+                    TargetedCharacter = targetedCharacter
                 });
             }
         }
