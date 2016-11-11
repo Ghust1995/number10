@@ -18,6 +18,10 @@ public class StunBullet : MonoBehaviour {
     private bool _hitTarget = false;
     private bool _initialized;
     private GameObject _target;
+    private Vector3 _direction;
+
+    private AudioClip _onHitSound;
+    private AudioClip _onMissSound;
 
     public void Initialize(float speed, float damageDone, float stunTime, GameObject target)
     {
@@ -31,6 +35,10 @@ public class StunBullet : MonoBehaviour {
         _target = target;
         _stunTime = stunTime;
         _initialized = true;
+        _direction = (_target.transform.position - transform.position).normalized;
+
+        _onHitSound = Resources.Load<AudioClip>("SFX/poke_hit");
+        _onMissSound = Resources.Load<AudioClip>("SFX/poke_miss");
     }
 
     // Update is called once per frame
@@ -43,8 +51,7 @@ public class StunBullet : MonoBehaviour {
         }
         if (_hitTarget) return;
 
-        Vector3 direction = (_target.transform.position - transform.position).normalized;
-        float directionAngle = Mathf.Atan2(direction.y, direction.x);
+        float directionAngle = Mathf.Atan2(_direction.y, _direction.x);
         directionAngle *= 360 / (2 * Mathf.PI);
         transform.rotation = Quaternion.Euler(0, 0, directionAngle);
         transform.localPosition += transform.right * _speed * Time.deltaTime;
@@ -53,15 +60,16 @@ public class StunBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
-        if (barrierHit && barrierHit.transform.parent.gameObject == _target)
+        if (barrierHit && barrierHit.Owner.gameObject == _target)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+            //gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
             StartCoroutine(Destroy());
+            GetComponent<AudioSource>().PlayOneShot(_onMissSound);
         }
         if (other.gameObject != _target) return;
 
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        //gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         _hitTarget = true;
         var targetChar = other.transform.GetComponent<Character>();
         if (targetChar)
@@ -70,6 +78,7 @@ public class StunBullet : MonoBehaviour {
             targetChar.Health.Damage(_damageDone);
             targetChar.Stun.DoStun(_stunTime);
             targetChar.GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<AudioSource>().PlayOneShot(_onHitSound);
             StartCoroutine(Destroy());
         }
     }

@@ -36,11 +36,19 @@ public class Stun : MonoBehaviour {
         _stunBar = GetComponentInChildren<Slider>();
     }
 
+    public delegate void OnStunHandler();
+
+    public event OnStunHandler OnStun;
+
     // Update is called once per frame
     void Update()
     {
         _stunLeft -= Time.deltaTime;
         _stunBar.gameObject.SetActive(_value > 0);
         _stunBar.value = _value;
+        if (IsStunned && OnStun != null)
+        {
+            OnStun.Invoke();
+        }
     }
 }

@@ -33877,7 +33877,8 @@
             		if (!(ve is NumericValueEval)) {
             			throw EvaluationException.InvalidValue();
             		}
-            		temp += ((NumericValueEval) ve).NumberValue;
+            		temp += ((
+                Eval) ve).NumberValue;
             	}
             	return temp;
             }

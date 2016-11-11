@@ -17,6 +17,10 @@ public class PokeBullet : MonoBehaviour {
     private bool _hitTarget = false;
 
     private bool _initialized = false;
+    private Vector3 _direction;
+
+    private AudioClip _onHitSound;
+    private AudioClip _onMissSound;
 
     public void Initialize(float speed, float damageDone, GameObject target)
     {
@@ -29,6 +33,10 @@ public class PokeBullet : MonoBehaviour {
         _damageDone = damageDone;
         _target = target;
         _initialized = true;
+        _direction = (_target.transform.position - transform.position).normalized;
+
+        _onHitSound = Resources.Load<AudioClip>("SFX/poke_hit");
+        _onMissSound = Resources.Load<AudioClip>("SFX/poke_miss");
     }
 	
 	// Update is called once per frame
@@ -40,9 +48,7 @@ public class PokeBullet : MonoBehaviour {
             return;
         }
         if (_hitTarget) return;
-
-        Vector3 direction = (_target.transform.position - transform.position).normalized;
-        float directionAngle = Mathf.Atan2(direction.y, direction.x);
+        float directionAngle = Mathf.Atan2(_direction.y, _direction.x);
         directionAngle *= 360 / (2 * Mathf.PI);
         transform.rotation = Quaternion.Euler(0, 0, directionAngle);
         transform.localPosition += transform.right * _speed * Time.deltaTime;
@@ -51,15 +57,15 @@ public class PokeBullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
-        if (barrierHit && barrierHit.transform.parent.gameObject == _target)
+        if (barrierHit && barrierHit.Owner.gameObject == _target)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+            //gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
             StartCoroutine(Destroy());
+            GetComponent<AudioSource>().PlayOneShot(_onMissSound);
         }
         if (other.gameObject != _target) return;
-
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        
         _hitTarget = true;
         var targetChar = other.transform.GetComponent<Character>();
         if (targetChar)
@@ -67,6 +73,7 @@ public class PokeBullet : MonoBehaviour {
             targetChar.GetComponent<SpriteRenderer>().color = Color.gray;
             targetChar.Health.Damage(_damageDone);
             targetChar.GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponent<AudioSource>().PlayOneShot(_onHitSound);
             StartCoroutine(Destroy());
         }
     }

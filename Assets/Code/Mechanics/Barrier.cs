@@ -11,7 +11,10 @@ public class Barrier : MonoBehaviour
     private float _speed = 3;
 
     private float _startingAngle;
+
+    [SerializeField]
     private bool _initialized;
+    public Character Owner { get; set; }
 
     public void Initialize(float speed)
     {

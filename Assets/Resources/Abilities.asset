@@ -17,42 +17,63 @@ MonoBehaviour:
   - abilitytype: 3
     casttime: 0.5
     cooldown: 5
-    power: 30
-    effectduration: 0
-    ticks: 0
+    power: 7
+    effectduration: 2
+    ticks: 4
     objectspeed: 0
   - abilitytype: 0
     casttime: 0
     cooldown: 2
-    power: 50
+    power: 15
     effectduration: 0
     ticks: 0
     objectspeed: 5
   - abilitytype: 5
-    casttime: 1
+    casttime: 0
     cooldown: 3
     power: 0
     effectduration: 0
     ticks: 0
     objectspeed: 3
   - abilitytype: 2
-    casttime: 2
+    casttime: 5
     cooldown: 30
-    power: 20
+    power: 6
     effectduration: 3
     ticks: 10
     objectspeed: 0
   - abilitytype: 1
     casttime: 0
-    cooldown: 5
-    power: 50
+    cooldown: 6
+    power: 15
     effectduration: 3
     ticks: 0
     objectspeed: 5
   - abilitytype: 4
-    casttime: 0.3
+    casttime: 0
+    cooldown: 3
+    power: 0
+    effectduration: 2
+    ticks: 0
+    objectspeed: 0
+  - abilitytype: 6
+    casttime: 0
+    cooldown: 0
+    power: 0
+    effectduration: 10
+    ticks: 0
+    objectspeed: 0
+  - abilitytype: 7
+    casttime: 0
     cooldown: 5
     power: 0
-    effectduration: 1
+    effectduration: 4
+    ticks: 0
+    objectspeed: 0
+  - abilitytype: 8
+    casttime: 0
+    cooldown: 5
+    power: 2
+    effectduration: 5
     ticks: 0
     objectspeed: 0

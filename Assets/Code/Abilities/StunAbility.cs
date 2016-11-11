@@ -6,23 +6,36 @@ public class StunAbility : Ability
     [SerializeField]
     private StunBullet _stunBulletPrefab;
 
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Stun;
     }
 
-    protected override void Cast(Character caster, AbilityCastEventArgs e)
+    protected override bool RequiresTarget()
     {
-        StartCoroutine(Stun(caster, e.TargetEnemy));
+        return false;
     }
 
-    IEnumerator Stun(Character caster, GameObject target)
+    protected override void Start()
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
+        base.Start();
+        if (_stunBulletPrefab == null)
+        {
+            _stunBulletPrefab = Resources.Load<StunBullet>("Prefabs/Mechanics/StunBullet");
+        }
+    }
+
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
+    {
+        StartCoroutine(DoCastLogic(caster, e.TargetEnemy.GetComponent<Character>(), Stun));
+    }
+
+    IEnumerator Stun(Character caster, Character target)
+    {
         var bullet = Instantiate(_stunBulletPrefab, this.transform) as StunBullet;
+        bullet.transform.localScale = Vector3.one;
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Initialize(Data.Objectspeed, Data.Power, Data.Effectduration, target);
+        bullet.Initialize(Data.Objectspeed, Power, Effectduration, target.gameObject);
+        yield break;
     }
 }

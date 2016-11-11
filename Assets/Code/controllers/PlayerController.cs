@@ -8,30 +8,32 @@ public delegate void DeselectEventHandler(object sender, EventArgs e);
 public delegate void AbilityCastEventHandler(object sender, AbilityCastEventArgs e);
 public class AbilityCastEventArgs : EventArgs
 {
-    public Vector2 Position;
-    public GameObject TargetEnemy;
+    //public Vector2 Position;
+    public Character TargetEnemy;
+    public Character TargetedCharacter;
 }
 
 public class PlayerController : MonoBehaviour
 {
-    public static event AbilityCastEventHandler AbilityCast;
-    public static event DeselectEventHandler Deselect;
+    public static event AbilityCastEventHandler AbilityCastEvent;
+    public static event DeselectEventHandler DeselectEvent;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Deselect != null)
+            if (DeselectEvent != null)
             {
-                Deselect.Invoke(this, null);
+                DeselectEvent.Invoke(this, null);
             }
 
-            Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+            var rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            var hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
             if (hit)
             {
-                var charSelected = hit.transform.GetComponent<PlayerCharacter>();
+                var charSelected = hit.transform.GetComponentInChildren<PlayerCharacter>();
                 if (charSelected)
                 {
                     charSelected.Select();
@@ -40,17 +42,18 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            if (AbilityCast != null)
+            var rayPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
+            var targetedCharacter = !hit ? null : hit.transform.GetComponentInChildren<Character>();
+            if (AbilityCastEvent != null)
             {
-                AbilityCast.Invoke(this, new AbilityCastEventArgs
+                AbilityCastEvent.Invoke(this, new AbilityCastEventArgs
                 {
-                    Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
-                    TargetEnemy = FindObjectOfType<BossCharacter>().gameObject
-            });
+                    //Position = Camera.main.ScreenToWorldPoint(Input.mousePosition),
+                    TargetEnemy = FindObjectOfType<BossCharacter>(),
+                    TargetedCharacter = targetedCharacter
+                });
             }
-
         }
-
     }
-
 }

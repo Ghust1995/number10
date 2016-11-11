@@ -3,37 +3,49 @@ using System.Collections;
 
 public class HealAbility : Ability
 {
-    protected override AbilityType GetAbilityType()
+    private GameObject _healingSprite;
+
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Heal;
     }
-    
-    //[SerializeField]
-    //private float _healingDone = ;
 
-    //[SerializeField]
-    //private float _timeToHeal;// = ImportData.GetContainer("ability_heal").GetData("cast_time").ToFloat();
+    protected override bool RequiresTarget()
+    {
+        return true;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        if (_healingSprite == null)
+        {
+            _healingSprite = Instantiate(Resources.Load<GameObject>("Prefabs/UI/HealingSprite"), transform) as GameObject;
+            _healingSprite.SetActive(false);
+        }
+    }
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
-        {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
-                StartCoroutine(Heal(caster, charSelected));
-            }
-        }
+        GetComponent<SpriteRenderer>().color += Color.yellow;
+        GetComponent<SpriteRenderer>().color /= 2;
+        StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Heal));
     }
 
     IEnumerator Heal(Character caster, Character charSelected)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
-        charSelected.Health.Heal(Data.Power);
-        charSelected.GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponent<SpriteRenderer>().color *= 2;
+        GetComponent<SpriteRenderer>().color -= Color.yellow;
+        _healingSprite.SetActive(true);
+        _healingSprite.transform.position = charSelected.transform.position;
+        //charSelected.GetComponent<SpriteRenderer>().color = Color.yellow;
+        for (int i = 0; i < Data.Ticks; i++)
+        {
+            charSelected.Health.Heal(Power);
+            yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
+            if (caster.Stun.IsStunned) break;
+        }
+        //charSelected.GetComponent<SpriteRenderer>().color = Color.white;
+        _healingSprite.SetActive(false);
     }
 }

@@ -8,45 +8,63 @@ public class SwapAbility : Ability
     [SerializeField]
     private Character _char2;
 
-    protected override AbilityType GetAbilityType()
+    public override AbilityType GetAbilityType()
     {
         return AbilityType.Swap;
     }
 
-    protected override void Cast(Character caster, AbilityCastEventArgs e)
+    protected override bool RequiresTarget()
     {
-        RaycastHit2D hit = Physics2D.Raycast(e.Position, Vector2.zero, 0f);
-        if (hit)
+        return true;
+    }
+
+    [SerializeField]
+    private GameObject _banishObjectPrefab;
+
+    protected override void Start()
+    {
+        base.Start();
+        if (_banishObjectPrefab == null)
         {
-            var charSelected = hit.transform.GetComponent<Character>();
-            if (charSelected)
-            {
-                charSelected.GetComponent<SpriteRenderer>().color = Color.cyan;
-                if (_char1 == null)
-                {
-                    _char1 = charSelected;
-                }
-                else if (_char2 == null)
-                {
-                    _char2 = charSelected;
-                    // Swap characters after some time
-                    StartCoroutine(SwapCharacters(caster));
-                }
-            }
+            _banishObjectPrefab = Resources.Load<GameObject>("Prefabs/UI/BanishSprite");
         }
     }
 
-    IEnumerator SwapCharacters(Character caster)
+    protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-        Cooldown.ResetCooldown();
-        yield return new WaitForSeconds(Data.Casttime);
-        if (caster.Stun.IsStunned) yield break;
+        StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Ban));
+    }
+
+    IEnumerator Ban(Character caster, Character target)
+    {
+        var banishObject = Instantiate(_banishObjectPrefab);
+        banishObject.transform.position = target.gameObject.transform.position;
+        //target.gameObject.SetActive(false);
+        target.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        target.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        target.gameObject.GetComponent<Character>().enabled = false;
+        if (target.gameObject.GetComponent<Ability>().GetAbilityType() != AbilityType.Swap)
+            target.gameObject.GetComponent<Ability>().enabled = false;
+        //yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
+        yield return new WaitForSeconds(Effectduration);
+        //target.gameObject.SetActive(true);
+        target.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        target.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        target.gameObject.GetComponent<Character>().enabled = true;
+        target.gameObject.GetComponent<Ability>().enabled = true;
+        Destroy(banishObject);
+        yield break;
+    }
+
+    IEnumerator SwapCharacters(Character caster, Character target)
+    {
         var char1pos = _char1.transform.position;
         _char1.transform.position = _char2.transform.position;
         _char2.transform.position = char1pos;
         _char1.GetComponent<SpriteRenderer>().color = Color.white;
         _char2.GetComponent<SpriteRenderer>().color = Color.white;
         _char1 = null;
-        _char2 = null;        
+        _char2 = null;
+        yield break;
     }
 }
