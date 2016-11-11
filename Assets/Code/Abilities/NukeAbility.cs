@@ -44,6 +44,12 @@ public class NukeAbility : Ability
         _nukeTargeting.transform.rotation = Quaternion.Euler(0, 0, directionAngle);
     }
 
+    void OnStun()
+    {
+        Destroy(_nukeTargeting);
+        GetComponent<AudioSource>().Stop();
+    }
+
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
         TauntAbility.TauntEvent += OnTaunt;
@@ -59,24 +65,21 @@ public class NukeAbility : Ability
         Vector3 direction = target.transform.position - transform.position;
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * 360 / (2 * Mathf.PI);
         _nukeTargeting.transform.rotation = Quaternion.Euler(0, 0, directionAngle);
-        Stun.OnStunHandler onStun = () =>
-        {
-            Destroy(_nukeTargeting);
-            GetComponent<AudioSource>().Stop();
-        };
-        caster.Stun.OnStun += onStun;
+        
+        caster.Stun.OnStun += OnStun;
 
         GetComponent<AudioSource>().PlayOneShot(_nukeWarning);
         StartCoroutine(DoCastLogic(caster, e.TargetEnemy.GetComponent<Character>(), Nuke, () =>
         {
-            caster.Stun.OnStun -= onStun;
+            caster.Stun.OnStun -= OnStun;
             TauntAbility.TauntEvent -= OnTaunt;
-
         }));
     }
 
     private IEnumerator Nuke(Character caster, Character target)
     {
+        caster.Stun.OnStun -= OnStun;
+        TauntAbility.TauntEvent -= OnTaunt;
         GetComponent<SpriteRenderer>().color *= 2;
         GetComponent<SpriteRenderer>().color -= Color.cyan;
         var nukeObject = Instantiate(_nukeObjectPrefab, transform) as GameObject;

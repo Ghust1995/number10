@@ -28,7 +28,7 @@ public class CopyAbility : Ability
             charSelected.gameObject.GetComponent<SpriteRenderer>().sprite;
         caster.gameObject.GetComponent<SpriteRenderer>().flipX = true;
         caster.IsCasting = false;
-        yield return new WaitForSeconds(Data.Effectduration);
+        yield return new WaitForSeconds(Effectduration);
         Destroy(component);
         caster.gameObject.GetComponent<CopyAbility>().enabled = true;
         caster.gameObject.GetComponent<SpriteRenderer>().sprite = copySprite;

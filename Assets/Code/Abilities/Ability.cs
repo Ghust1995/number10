@@ -17,6 +17,11 @@ public abstract class Ability : MonoBehaviour
         get { return Data.Power * _powerMultiplier; }
     }
 
+    protected float Effectduration
+    {
+        get { return Data.Effectduration * _powerMultiplier; }
+    }
+
     protected abstract bool RequiresTarget();
     
     private float _powerMultiplier = 1;
@@ -106,10 +111,13 @@ public abstract class Ability : MonoBehaviour
             if (onCastEnded != null) onCastEnded();
             yield break;
         }
-        caster.IsCasting = true;
-        _audioPlayer.PlayOneShot(_audioClip);
-        yield return castLogic(caster, target);
-        caster.IsCasting = false;
+        if (target != null)
+        {
+            caster.IsCasting = true;
+            _audioPlayer.PlayOneShot(_audioClip);
+            yield return castLogic(caster, target);
+            caster.IsCasting = false;
+        }
         if (onCastEnded != null) onCastEnded();
     }
 }

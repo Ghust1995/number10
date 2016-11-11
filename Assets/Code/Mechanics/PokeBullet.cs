@@ -59,10 +59,10 @@ public class PokeBullet : MonoBehaviour {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
         if (barrierHit && barrierHit.Owner.gameObject == _target)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+            //gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
-            GetComponent<AudioSource>().PlayOneShot(_onMissSound);
             StartCoroutine(Destroy());
+            GetComponent<AudioSource>().PlayOneShot(_onMissSound);
         }
         if (other.gameObject != _target) return;
         

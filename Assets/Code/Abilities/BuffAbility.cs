@@ -15,7 +15,7 @@ public class BuffAbility : Ability
 
     protected override void Cast(Character caster, AbilityCastEventArgs e)
     {
-
+        if (e.TargetedCharacter.GetType() != caster.GetType()) return;
         StartCoroutine(DoCastLogic(caster, e.TargetedCharacter, Buff));
     }
 
@@ -23,7 +23,7 @@ public class BuffAbility : Ability
     {
         charSelected.Buff(Data.Power);
         //yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
-        yield return new WaitForSeconds(Data.Effectduration);
+        yield return new WaitForSeconds(Effectduration);
         charSelected.EndBuff();
     }
 }

@@ -62,14 +62,14 @@ public class StunBullet : MonoBehaviour {
         var barrierHit = other.gameObject.GetComponent<Barrier>();
         if (barrierHit && barrierHit.Owner.gameObject == _target)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+            //gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             _hitTarget = true;
             StartCoroutine(Destroy());
             GetComponent<AudioSource>().PlayOneShot(_onMissSound);
         }
         if (other.gameObject != _target) return;
 
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        //gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         _hitTarget = true;
         var targetChar = other.transform.GetComponent<Character>();
         if (targetChar)

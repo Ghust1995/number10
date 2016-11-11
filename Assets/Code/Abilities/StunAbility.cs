@@ -35,7 +35,7 @@ public class StunAbility : Ability
         var bullet = Instantiate(_stunBulletPrefab, this.transform) as StunBullet;
         bullet.transform.localScale = Vector3.one;
         bullet.transform.localPosition = Vector3.zero;
-        bullet.Initialize(Data.Objectspeed, Power, Data.Effectduration, target.gameObject);
+        bullet.Initialize(Data.Objectspeed, Power, Effectduration, target.gameObject);
         yield break;
     }
 }

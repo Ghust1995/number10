@@ -34,7 +34,7 @@ public class TauntAbility : Ability
     IEnumerator Taunt(Character caster, Character charSelected)
     {
         if (TauntEvent != null) TauntEvent.Invoke(caster, new TauntEventArgs {TauntingCharacter = charSelected});
-        yield return new WaitForSeconds(Data.Effectduration);
+        yield return new WaitForSeconds(Effectduration);
         if (TauntOverEvent != null) TauntOverEvent.Invoke(caster, null);
     }
 }

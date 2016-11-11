@@ -33,13 +33,13 @@ public class Menu : MonoBehaviour
         CharacterDescriptions = new List<CharacterDescription>
         {
             new CharacterDescription(Resources.Load<Sprite>("Sprites/Poker"), "Poker (Number 1)", "Click anywhere to throw a damaging projectile towards the boss."),
-            //new CharacterDescription(Resources.Load<Sprite>("Sprites/Stunner"), "Poker (Number 1)", "Click anywhere to throw a damaging projectile towards the boss"),
+            new CharacterDescription(Resources.Load<Sprite>("Sprites/Stunner"), "Stunner (Number 2)", "Click anywhere to throw a damaging and stunning projectile towards the boss."),
             new CharacterDescription(Resources.Load<Sprite>("Sprites/Barrier"), "Barrier (Number 3)", "Click on an ally to pass the barrier to him."),
             new CharacterDescription(Resources.Load<Sprite>("Sprites/Healer"), "Healer (Number 4)", "Click on an ally to heal him."),
-            //new CharacterDescription(Resources.Load<Sprite>("Sprites/Poker"), "Poker (Number 1)", "Click anywhere to throw a damaging projectile towards the boss"),
-            //new CharacterDescription(Resources.Load<Sprite>("Sprites/Taunter"), "Poker (Number 1)", "Click anywhere to throw a damaging projectile towards the boss"),
-            new CharacterDescription(Resources.Load<Sprite>("Sprites/Nuker"), "Nuker (Number 7)", "Click anywhere to throw a damaging and stunning projectile towards the boss"),
-            new CharacterDescription(Resources.Load<Sprite>("Sprites/Swapper"), "Swapper (Number 8)", "Click on a character to remove it from the game temporarily"),
+            new CharacterDescription(Resources.Load<Sprite>("Sprites/Buffer"), "Buffer (Number 5)", "Click on an ally to make him stronger."),
+            new CharacterDescription(Resources.Load<Sprite>("Sprites/Taunter"), "Taunter (Number 6)", "Click on an ally to make him temporarily the target of the bosses skills."),
+            new CharacterDescription(Resources.Load<Sprite>("Sprites/Nuker"), "Nuker (Number 7)", "Click anywhere to charge a very strong channeling atack (stops if stunned.)"),
+            new CharacterDescription(Resources.Load<Sprite>("Sprites/Swapper"), "Banisher (Number 8)", "Click on a character to remove it from the game temporarily."),
             new CharacterDescription(Resources.Load<Sprite>("Sprites/Ditto"), "Ditto (Number 9)", "Click on an ally to temporarily copy his ability."),
         };
 	    ChangeDisplayingCharacter();

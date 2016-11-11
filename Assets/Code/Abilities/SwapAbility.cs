@@ -39,10 +39,19 @@ public class SwapAbility : Ability
     {
         var banishObject = Instantiate(_banishObjectPrefab);
         banishObject.transform.position = target.gameObject.transform.position;
-        target.gameObject.SetActive(false);
+        //target.gameObject.SetActive(false);
+        target.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        target.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        target.gameObject.GetComponent<Character>().enabled = false;
+        if (target.gameObject.GetComponent<Ability>().GetAbilityType() != AbilityType.Swap)
+            target.gameObject.GetComponent<Ability>().enabled = false;
         //yield return new WaitForSeconds(Data.Effectduration / Data.Ticks);
-        yield return new WaitForSeconds(Data.Effectduration);
-        target.gameObject.SetActive(true);
+        yield return new WaitForSeconds(Effectduration);
+        //target.gameObject.SetActive(true);
+        target.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        target.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        target.gameObject.GetComponent<Character>().enabled = true;
+        target.gameObject.GetComponent<Ability>().enabled = true;
         Destroy(banishObject);
         yield break;
     }
