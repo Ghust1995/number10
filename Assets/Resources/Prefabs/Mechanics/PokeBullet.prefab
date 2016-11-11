@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _damageDone: 50
-  _timeToDestroy: 0
+  _timeToDestroy: 0.1
 --- !u!212 &212000012324682392
 SpriteRenderer:
   m_ObjectHideFlags: 1

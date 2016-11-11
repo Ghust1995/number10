@@ -163,7 +163,7 @@ MonoBehaviour:
   _speed: 10
   _damageDone: 50
   _stunTime: 3
-  _timeToDestroy: 0.5
+  _timeToDestroy: 0.1
 --- !u!212 &212000011950480182
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -193,7 +193,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c5bc99ebebd8fee4c998dc23b5d81817, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50d60fd80eca70c45b92c51f6bbc2867, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
