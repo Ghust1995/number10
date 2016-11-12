@@ -6,8 +6,11 @@ Right mouse button: Selects a character
 Left mouse button: Uses the character ability
 
 Programming: Gustavo Guimaraes, Felipe Guimaraes, Luiz Henrique
+
 Art: Gustavo Guimaraes and Luiz Henrique
+
 Music: Gabriel Ilharco, Yuri Galindo, Luiz Felipeh, Gustavo Guimaraes
+
 Sound: Marco Longo
 
 This game was made for the Kongragate Game Jam 2
